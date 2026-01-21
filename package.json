@@ -1,0 +1,35 @@
+{
+  "name": "trivia-bot",
+  "version": "1.0.0",
+  "description": "A trivia bot for the Avatar Discord community",
+  "homepage": "https://github.com/atlacord/trivia-bot#readme",
+  "bugs": {
+    "url": "https://github.com/atlacord/trivia-bot/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atlacord/trivia-bot.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Kyle S (kdspa)",
+    "email": "git@kylespa.com",
+    "url": "https://soda.gg"
+  },
+  "contributors": [
+    {
+      "name": "Captain M"
+    }
+  ],
+  "type": "commonjs",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+    "dependencies": {
+    "discord.js": "^14.25.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
