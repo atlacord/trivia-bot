@@ -1,9 +1,10 @@
-node_modules
-
-build 
-
-package-lock.json
-.env
-
+# Directories
 *.code-workspace
-*.vscode
+node_modules
+triviaLists
+build
+
+# Files
+.env
+*.code-workspace
+.DS_Store

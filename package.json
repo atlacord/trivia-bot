@@ -1,35 +1,28 @@
 {
   "name": "trivia-bot",
   "version": "1.0.0",
-  "description": "A trivia bot for the Avatar Discord community",
-  "homepage": "https://github.com/atlacord/trivia-bot#readme",
-  "bugs": {
-    "url": "https://github.com/atlacord/trivia-bot/issues"
+  "description": "A Discord application specializing in trivia.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/atlacord/trivia-bot.git"
   },
+  "author": "Kyle S <git@kylespa.com>",
   "license": "MIT",
-  "author": {
-    "name": "Kyle S (kdspa)",
-    "email": "git@kylespa.com",
-    "url": "https://soda.gg"
+  "bugs": {
+    "url": "https://github.com/atlacord/trivia-bot/issues"
   },
-  "contributors": [
-    {
-      "name": "Captain M"
-    }
-  ],
-  "type": "commonjs",
-  "main": "build/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-    "dependencies": {
-    "discord.js": "^14.25.1"
+  "homepage": "https://github.com/atlacord/trivia-bot#readme",
+  "dependencies": {
+    "discord.js": "^14.27.0",
+    "dotenv": "^18.0.5",
+    "moment": "^2.31.0",
+    "moment-duration-format": "^2.3.2"
   },
   "devDependencies": {
-    "typescript": "^5.9.3"
+    "@types/moment-duration-format": "^2.2.7"
   }
 }
