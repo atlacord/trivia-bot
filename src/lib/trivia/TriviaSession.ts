@@ -43,6 +43,7 @@ export default class TriviaSession {
     };
 
     public createSession(options: SessionOptions): Session {
+        console.debug(`[TriviaSession] Initializing new session ${options.id} in ${this.interaction.guildId}`);
         return {
             id: options.id,
             user: options.user,
