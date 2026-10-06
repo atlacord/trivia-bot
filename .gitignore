@@ -7,3 +7,4 @@ build
 # Files
 .env
 *.code-workspace
+.DS_Store
