@@ -1,4 +1,4 @@
-import { GuildMember, ChatInputCommandInteraction, MessageFlags, ContainerComponent, InteractionReplyOptions, MessageComponent } from 'discord.js';
+import { ChatInputCommandInteraction, MessageFlags, ContainerComponent, InteractionReplyOptions, MessageComponent, User } from 'discord.js';
 import crypto from 'crypto';
 import DiscordClient from '../../core/Bot';
 
@@ -9,18 +9,18 @@ interface Question {
 
 interface Session {
     id: string;
-    user: GuildMember
+    user: User
     list: Question[];
     currentQuestion?: Question;
     questionNumber?: number;
-    streak: number;
+    score: number;
     timeLimit: number;
     maxScore: number;
 };
 
 interface SessionOptions {
     id: string;
-    user: GuildMember | any;
+    user: User | any;
     list: Question[];
     timeLimit?: number;
     maxScore?: number;
@@ -49,19 +49,52 @@ export default class TriviaSession {
             user: options.user,
             list: options.list,
             questionNumber: 0,
-            streak: 0,
+            score: 0,
             timeLimit: options.timeLimit || 20000,
             maxScore: options.maxScore || 10000
         }
     };
 
-    public async sendMessage(components: MessageComponent[], options?: any) {
+    public async sendMessage(options: any, components?: MessageComponent[]) {
+        let c;
+        if (components) {
+            c = components;
+        } else {
+            c = {
+                type: 17,
+                accent_color: options.color,
+                components: [
+                    {
+                        type: 10,
+                        content: `## ${options.heading}`
+                    },
+                    {
+                        type: 14,
+                        divider: true,
+                        spacing: 1
+                    },
+                    {
+                        type: 10,
+                        content: `${options.content}`
+                    },
+                    {
+                        type: 1,
+                        components: [
+                            {
+                                type: 2,
+                                style: 3,
+                                custom_id: `${this.session.id}:score:button`,
+                                label: `Score: ${this.session.score}`,
+                                disabled: true,
+                            }
+                        ]
+                    }
+                ]
+            }
+        };
         let payload: any = {
             flags: MessageFlags.IsComponentsV2,
-            components: [components]
-        };
-        if (options) {
-            Object.assign(payload, options);
+            components: [c]
         };
 
         let reply;
@@ -85,6 +118,7 @@ export default class TriviaSession {
     }
 
     public endGame(): void {
+        console.debug(`[TriviaSession] Closing session ${this.session.id}`)
         this.playing = false;
     };
 
@@ -96,46 +130,18 @@ export default class TriviaSession {
     };
 
     public async runTrivia() {
-        let score: number = 0;
-
         let componentId = `trivia:${this.session.id}`;
 
         while (this.playing) {
             // End game if user's score exceeds the maximum
-            if (this.session.maxScore && (score >= this.session.maxScore)) {
+            if (this.session.maxScore && (this.session.score >= this.session.maxScore)) {
                 this.endGame();
                 return;
             };
 
             // End game if there are no questions left
             if (this.session.list.length === 0) {
-                let container: any = {
-                    type: 17,
-                    accent_color: 0xff4040,
-                    components: [
-                        {
-                            type: 10,
-                            content: '## Game Over'
-                        },
-                        {
-                            type: 14,
-                            divider: true,
-                            spacing: 1
-                        },
-                        {
-                            type: 10,
-                            content: `We're out of questions!`
-                        },
-                        {
-                            type: 2,
-                            style: 3,
-                            custom_id: `${this.session.id}:gameover:score:button`,
-                            label: `Score: ${score}`,
-                            disabled: true,
-                        }
-                    ]
-                }
-                await this.sendMessage(container);
+                await this.sendMessage({ color: 0xff4040, heading: 'Game Over', content: 'We\'re out of questions!'});
                 this.endGame();
                 return;
             };
@@ -182,21 +188,15 @@ export default class TriviaSession {
                         components: [
                             {
                                 type: 2,
-                                custom_id: `${this.session.id}submit:button`,
+                                custom_id: `${this.session.id}:submit:button`,
                                 label: 'Click here to submit your answer',
                                 style: 1
                             },
                             {
                                 type: 2,
-                                custom_id: `${this.session.id}:endgame:button`,
-                                label: 'Click here to submit your answer',
-                                style: 4
-                            },
-                            {
-                                type: 2,
                                 style: 3,
                                 custom_id: `${this.session.id}:question:score:button`,
-                                label: `Score: ${score}`,
+                                label: `Score: ${this.session.score}`,
                                 disabled: true,
                             }
                         ]
@@ -204,47 +204,13 @@ export default class TriviaSession {
                 ]
             };
 
-            let quizMessage = await this.sendMessage(container);
+            let quizMessage = await this.sendMessage({}, container);
 
             let buttonInteraction = await quizMessage.awaitMessageComponent({
-                filter: (interaction: any) => (interaction.customId === `${componentId}:button`) && (interaction.user.id === this.session.user.id),
+                filter: (interaction: any) => (interaction.customId === `${this.session.id}:submit:button`) && (interaction.user.id === this.session.user.id),
                 time: this.session.timeLimit
             });
-
-            let endgame = await quizMessage.awaitMessageComponent({
-                filter: (interaction:any) => (interaction.customId === `${this.session.id}:endgame:button`) && (interaction.user.id === this.session.user.id),
-                time: this.session.timeLimit
-            });
-
-            if (endgame.isButton()) {
-                let container: any = {
-                    type: 17,
-                    accent_color: 0xff4040,
-                    components: [
-                        {
-                            type: 10,
-                            content: '## Ended Game'
-                        },
-                        {
-                            type: 14,
-                            divider: true,
-                            spacing: 1
-                        },
-                        {
-                            type: 10,
-                            content: `Thanks for playing!`
-                        },
-                        {
-                            type: 2,
-                            style: 3,
-                            custom_id: `${this.session.id}:gameover:score:button`,
-                            label: `Final Score: ${score}`,
-                            disabled: true,
-                        }
-                    ]
-                }
-                this.endGame();
-            }
+            
             const modal = {
                 custom_id: `${componentId}:modal`,
                 title: 'Submit Answer',
@@ -281,111 +247,16 @@ export default class TriviaSession {
                 const answer = await modalInteraction.fields.getTextInputValue('answer').trim().toLowerCase();
                 if (this.checkAnswer(answer)) {
                     modalInteraction.deferUpdate();
-                    this.session.streak += 1;
-                    score += 1000;
-
-                    container = {
-                        type: 17,
-                        accent_color: 0x66FF6B,
-                        components: [
-                            {
-                                type: 10,
-                                content: '## Correct!'
-                            },
-                            {
-                                type: 14,
-                                divider: true,
-                                spacing: 1
-                            },
-                            {
-                                type: 10,
-                                content: `You got it ${this.interaction.user.username}! **+1** to you.`
-                            },
-                            {
-                                type: 1,
-                                components: [
-                                    {
-                                        type: 2,
-                                        style: 3,
-                                        custom_id: `${this.session.id}:correct:score:button`,
-                                        label: `Score: ${score}`,
-                                        disabled: true,
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                    await this.sendMessage(container);
+                    this.session.score += 1000;
+                    await this.sendMessage({ color: 0x66ff6b, heading: 'Correct!', content: `You got it ${this.interaction.user.username}! **+1** to you.`});
                     await new Promise(resolve => setTimeout(resolve, 5000));
                 } else {
                     modalInteraction.deferUpdate();
-                    container = {
-                        type: 17,
-                        accent_color: 0xFF4040,
-                        components: [
-                            {
-                                type: 10,
-                                content: '## Incorrect'
-                            },
-                            {
-                                type: 14,
-                                divider: true,
-                                spacing: 1
-                            },
-                            {
-                                type: 10,
-                                content: `The correct answer is **${this.session.currentQuestion.answers[0]}**. ${failMessages[Math.floor(crypto.randomInt(0, failMessages.length))]}`
-                            },
-                            {
-                                type: 1,
-                                components: [
-                                    {
-                                        type: 2,
-                                        style: 3,
-                                        custom_id: `${this.session.id}:incorrect:score:button`,
-                                        label: `Score: ${score}`,
-                                        disabled: true,
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                    await this.sendMessage(container);
+                    await this.sendMessage({ color: 0xff4040, heading: 'Incorrect', content: `The correct answer is **${this.session.currentQuestion.answers[0]}**. ${failMessages[Math.floor(crypto.randomInt(0, failMessages.length))]}` });
                     await new Promise(resolve => setTimeout(resolve, 5000));
                 }
             } catch (err) {
-                container = {
-                    type: 17,
-                    accent_color: 0xFF4040,
-                    components: [
-                        {
-                            type: 10,
-                            content: '## Time\'s up!'
-                        },
-                        {
-                            type: 14,
-                            divider: true,
-                            spacing: 1
-                        },
-                        {
-                            type: 10,
-                            content: `The correct answer was **${this.session.currentQuestion!.answers[0]}**. Your final score is **${score}**.`
-                        },
-                        {
-                            type: 1,
-                            components: [
-                                {
-                                    type: 2,
-                                    style: 3,
-                                    custom_id: `${this.session.id}:timeout:score:button`,
-                                    label: `Score: ${score}`,
-                                    disabled: true,
-                                }
-                            ]
-                        }
-                    ]
-                }
-                this.sendMessage(container);
+                this.sendMessage({ color: 0xff4040, heading: 'Time\'s up!', content: `The correct answer was **${this.session.currentQuestion!.answers[0]}**. Your final score is **${this.session.score}**.`});
                 this.endGame();
             }
         }
