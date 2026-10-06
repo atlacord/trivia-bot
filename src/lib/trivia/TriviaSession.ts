@@ -114,7 +114,7 @@ export default class TriviaSession {
                     components: [
                         {
                             type: 10,
-                            content: '# Game Over'
+                            content: '## Game Over'
                         },
                         {
                             type: 14,
@@ -249,7 +249,7 @@ export default class TriviaSession {
                         components: [
                             {
                                 type: 10,
-                                content: '# Correct!'
+                                content: '## Correct!'
                             },
                             {
                                 type: 14,
@@ -284,7 +284,7 @@ export default class TriviaSession {
                         components: [
                             {
                                 type: 10,
-                                content: '# Incorrect'
+                                content: '## Incorrect'
                             },
                             {
                                 type: 14,
@@ -319,7 +319,7 @@ export default class TriviaSession {
                     components: [
                         {
                             type: 10,
-                            content: '# Time\'s up!'
+                            content: '## Time\'s up!'
                         },
                         {
                             type: 14,
