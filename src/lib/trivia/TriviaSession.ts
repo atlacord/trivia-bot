@@ -1,4 +1,4 @@
-import { GuildMember, ChatInputCommandInteraction, MessageFlags } from 'discord.js';
+import { GuildMember, ChatInputCommandInteraction, MessageFlags, ContainerComponent, InteractionReplyOptions, MessageComponent } from 'discord.js';
 import crypto from 'crypto';
 import DiscordClient from '../../core/Bot';
 
@@ -54,13 +54,21 @@ export default class TriviaSession {
         }
     };
 
-    public async sendMessage(content: any) {
+    public async sendMessage(components: MessageComponent[], options?: any) {
+        let payload: any = {
+            flags: MessageFlags.IsComponentsV2,
+            components: [components]
+        };
+        if (options) {
+            Object.assign(payload, options);
+        };
+
         let reply;
         if (this.reply.has(`${this.session.id}:reply`)) {
             reply = this.reply.get(`${this.session.id}:reply`);
-            reply = reply.edit(content);
+            reply = reply.edit(payload);
         } else {
-            reply = await this.interaction.reply(content);
+            reply = await this.interaction.reply(payload);
             this.reply.set(`${this.session.id}:reply`, reply);
         };
         return reply;
@@ -100,7 +108,7 @@ export default class TriviaSession {
 
             // End game if there are no questions left
             if (this.session.list.length === 0) {
-                let container = {
+                let container: any = {
                     type: 17,
                     accent_color: 0xff4040,
                     components: [
@@ -115,7 +123,14 @@ export default class TriviaSession {
                         },
                         {
                             type: 10,
-                            content: `We're out of questions! Your final score is: **${score}**`
+                            content: `We're out of questions!`
+                        },
+                        {
+                            type: 2,
+                            style: 3,
+                            custom_id: `${this.session.id}:gameover:score:button`,
+                            label: `Score: ${score}`,
+                            disabled: true,
                         }
                     ]
                 }
@@ -127,7 +142,20 @@ export default class TriviaSession {
             this.session.currentQuestion = this.newQuestion();
             this.session.questionNumber = this.session.questionNumber! += 1;
 
-            let container = {
+            let revealMessages = [
+                `I know this one! ${this.session.currentQuestion.answers[0]}`,
+                `Easy: ${this.session.currentQuestion.answers[0]}.`,
+                `Oh really? It's ${this.session.currentQuestion.answers[0]} of course.`
+            ];
+
+            let failMessages = [
+                'To the next one, I guess...',
+                'Moving on....',
+                'I\'m sure you\'ll know the answer to the next one.',
+                'Next one.'
+            ];
+
+            let container: any = {
                 type: 17,
                 accent_color: 0xffe4a8,
                 components: [
@@ -147,10 +175,6 @@ export default class TriviaSession {
                         divider: true,
                         spacing: 1
                     },
-                    {
-                        type: 10,
-                        content: `Current Score: ${score}`
-                    },
                     // Button row for answer submission
                     {
                         type: 1,
@@ -160,13 +184,20 @@ export default class TriviaSession {
                                 custom_id: `${componentId}:button`,
                                 label: 'Click here to submit your answer',
                                 style: 1
+                            },
+                            {
+                                type: 2,
+                                style: 3,
+                                custom_id: `${this.session.id}:question:score:button`,
+                                label: `Score: ${score}`,
+                                disabled: true,
                             }
                         ]
                     }
                 ]
             };
 
-            let quizMessage = await this.sendMessage({ flags: MessageFlags.IsComponentsV2, components: [container]});
+            let quizMessage = await this.sendMessage(container);
 
             let buttonInteraction = await quizMessage.awaitMessageComponent({
                 filter: (interaction: any) => (interaction.customId === `${componentId}:button`) && (interaction.user.id === this.session.user.id),
@@ -185,7 +216,7 @@ export default class TriviaSession {
                             type: 4,
                             custom_id: 'answer',
                             style: 2,
-                            min_length: 3,
+                            min_length: 2,
                             max_length: 4000,
                             placeholder: 'A very interesting question response.',
                             required: true
@@ -227,7 +258,19 @@ export default class TriviaSession {
                             },
                             {
                                 type: 10,
-                                content: `Your new streak is **${this.session.streak}**. The next question will appear in 5 seconds.`
+                                content: `You got it ${this.interaction.user.username}! **+1** to you.`
+                            },
+                            {
+                                type: 1,
+                                components: [
+                                    {
+                                        type: 2,
+                                        style: 3,
+                                        custom_id: `${this.session.id}:correct:score:button`,
+                                        label: `Score: ${score}`,
+                                        disabled: true,
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -250,12 +293,24 @@ export default class TriviaSession {
                             },
                             {
                                 type: 10,
-                                content: `The correct answer is: **${this.session.currentQuestion!.answers[0]}**. Your final score is: **${score}**`
+                                content: `The correct answer is **${this.session.currentQuestion.answers[0]}**. ${failMessages[Math.floor(crypto.randomInt(0, failMessages.length))]}`
+                            },
+                            {
+                                type: 1,
+                                components: [
+                                    {
+                                        type: 2,
+                                        style: 3,
+                                        custom_id: `${this.session.id}:incorrect:score:button`,
+                                        label: `Score: ${score}`,
+                                        disabled: true,
+                                    }
+                                ]
                             }
                         ]
                     }
                     await this.sendMessage(container);
-                    this.playing = false;
+                    await new Promise(resolve => setTimeout(resolve, 5000));
                 }
             } catch (err) {
                 container = {
@@ -274,6 +329,18 @@ export default class TriviaSession {
                         {
                             type: 10,
                             content: `The correct answer was **${this.session.currentQuestion!.answers[0]}**. Your final score is **${score}**.`
+                        },
+                        {
+                            type: 1,
+                            components: [
+                                {
+                                    type: 2,
+                                    style: 3,
+                                    custom_id: `${this.session.id}:timeout:score:button`,
+                                    label: `Score: ${score}`,
+                                    disabled: true,
+                                }
+                            ]
                         }
                     ]
                 }
