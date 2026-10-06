@@ -1,0 +1,28 @@
+{
+  "name": "trivia-bot",
+  "version": "1.0.0",
+  "description": "A Discord application specializing in trivia.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atlacord/trivia-bot.git"
+  },
+  "author": "Kyle S <git@kylespa.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/atlacord/trivia-bot/issues"
+  },
+  "homepage": "https://github.com/atlacord/trivia-bot#readme",
+  "dependencies": {
+    "discord.js": "^14.27.0",
+    "dotenv": "^18.0.5",
+    "moment": "^2.31.0",
+    "moment-duration-format": "^2.3.2"
+  },
+  "devDependencies": {
+    "@types/moment-duration-format": "^2.2.7"
+  }
+}

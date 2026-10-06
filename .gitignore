@@ -1,0 +1,9 @@
+# Directories
+*.code-workspace
+node_modules
+triviaLists
+build
+
+# Files
+.env
+*.code-workspace
