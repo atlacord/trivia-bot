@@ -51,6 +51,12 @@ export default class Trivia extends Command {
         let listArg: any = interaction.options.get('list') || null;
         let list = this.getList(listArg);
 
-        return new TriviaSession(this.bot, interaction, { id: `trivia:${listArg.value || 'random'}:${interaction.user.id}`, user: interaction.user, list: list});
+        let identifier;
+        if (!listArg) {
+            identifier = 'random'
+        } else {
+            identifier = listArg.value
+        };
+        return new TriviaSession(this.bot, interaction, { id: `trivia:${identifier}:${interaction.user.id}`, user: interaction.user, list: list});
     };
 }
