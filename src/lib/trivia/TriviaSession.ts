@@ -182,9 +182,15 @@ export default class TriviaSession {
                         components: [
                             {
                                 type: 2,
-                                custom_id: `${componentId}:button`,
+                                custom_id: `${this.session.id}submit:button`,
                                 label: 'Click here to submit your answer',
                                 style: 1
+                            },
+                            {
+                                type: 2,
+                                custom_id: `${this.session.id}:endgame:button`,
+                                label: 'Click here to submit your answer',
+                                style: 4
                             },
                             {
                                 type: 2,
@@ -205,6 +211,40 @@ export default class TriviaSession {
                 time: this.session.timeLimit
             });
 
+            let endgame = await quizMessage.awaitMessageComponent({
+                filter: (interaction:any) => (interaction.customId === `${this.session.id}:endgame:button`) && (interaction.user.id === this.session.user.id),
+                time: this.session.timeLimit
+            });
+
+            if (endgame.isButton()) {
+                let container: any = {
+                    type: 17,
+                    accent_color: 0xff4040,
+                    components: [
+                        {
+                            type: 10,
+                            content: '## Ended Game'
+                        },
+                        {
+                            type: 14,
+                            divider: true,
+                            spacing: 1
+                        },
+                        {
+                            type: 10,
+                            content: `Thanks for playing!`
+                        },
+                        {
+                            type: 2,
+                            style: 3,
+                            custom_id: `${this.session.id}:gameover:score:button`,
+                            label: `Final Score: ${score}`,
+                            disabled: true,
+                        }
+                    ]
+                }
+                this.endGame();
+            }
             const modal = {
                 custom_id: `${componentId}:modal`,
                 title: 'Submit Answer',
