@@ -42,7 +42,6 @@ export default class TriviaSession {
         this.reply = new Map();
         this.playing = true;
         this.runTrivia();
-        console.debug(this.session);
     };
 
     public createSession(options: SessionOptions): Session {
