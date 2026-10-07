@@ -1,4 +1,4 @@
-import { ApplicationCommand, Collection, Routes } from 'discord.js';
+import { ApplicationCommand, Collection, PermissionFlagsBits, Routes } from 'discord.js';
 import fs from 'fs/promises'
 import path from 'path';
 import type DiscordClient from '../Bot';

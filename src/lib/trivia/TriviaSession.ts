@@ -12,10 +12,11 @@ interface Session {
     user: User
     list: Question[];
     currentQuestion?: Question;
-    questionNumber?: number;
+    questionNumber: number;
     score: number;
     timeLimit: number;
     maxScore: number;
+    maxQuestions: number;
 };
 
 interface SessionOptions {
@@ -24,6 +25,7 @@ interface SessionOptions {
     list: Question[];
     timeLimit?: number;
     maxScore?: number;
+    maxQuestions?: number;
 };
 
 export default class TriviaSession {
@@ -40,6 +42,7 @@ export default class TriviaSession {
         this.reply = new Map();
         this.playing = true;
         this.runTrivia();
+        console.debug(this.session);
     };
 
     public createSession(options: SessionOptions): Session {
@@ -50,8 +53,9 @@ export default class TriviaSession {
             list: options.list,
             questionNumber: 0,
             score: 0,
-            timeLimit: options.timeLimit || 20000,
-            maxScore: options.maxScore || 10000
+            timeLimit: options.timeLimit || 15000,
+            maxScore: options.maxScore || 10000,
+            maxQuestions: options.maxQuestions || 10
         }
     };
 
@@ -117,9 +121,10 @@ export default class TriviaSession {
         return false;
     }
 
-    public endGame(): void {
+    public endGame(): boolean {
         console.debug(`[TriviaSession] Closing session ${this.session.id}`)
         this.playing = false;
+        return false;
     };
 
     public newQuestion(): Question {
@@ -130,22 +135,14 @@ export default class TriviaSession {
     };
 
     public async runTrivia() {
-        let componentId = `trivia:${this.session.id}`;
-
         while (this.playing) {
-            // End game if user's score exceeds the maximum
-            if (this.session.maxScore && (this.session.score >= this.session.maxScore)) {
+            // End game if user exceeds the maximum score or questions
+            if ((this.session.maxScore && (this.session.score >= this.session.maxScore) || this.session.questionNumber > this.session.maxQuestions)) {
+                await this.sendMessage({ color: 0xff4040, heading: 'Game Over', content: 'We\'re out of questions! Thanks for playing!'});
                 this.endGame();
-                return;
+                break;
             };
 
-            // End game if there are no questions left
-            if (this.session.list.length === 0) {
-                await this.sendMessage({ color: 0xff4040, heading: 'Game Over', content: 'We\'re out of questions!'});
-                this.endGame();
-                return;
-            };
-            
             this.session.currentQuestion = this.newQuestion();
             this.session.questionNumber = this.session.questionNumber! += 1;
 
@@ -206,39 +203,39 @@ export default class TriviaSession {
 
             let quizMessage = await this.sendMessage({}, container);
 
-            let buttonInteraction = await quizMessage.awaitMessageComponent({
-                filter: (interaction: any) => (interaction.customId === `${this.session.id}:submit:button`) && (interaction.user.id === this.session.user.id),
-                time: this.session.timeLimit
-            });
-            
-            const modal = {
-                custom_id: `${componentId}:modal`,
-                title: 'Submit Answer',
-                components: [
-                    {
-                        type: 18,
-                        label: `Question ${this.session.questionNumber} - ${this.session.currentQuestion.question}`,
-                        description: 'Enter your answer here',
-                        component: {
-                            type: 4,
-                            custom_id: 'answer',
-                            style: 2,
-                            min_length: 2,
-                            max_length: 4000,
-                            placeholder: 'A very interesting question response.',
-                            required: true
-                        }
-                    }
-                ]
-            };
-
-            if (modal.components[0].label.length > 45) {
-                modal.components[0].label = `Question ${this.session.questionNumber}`;
-            };
-
-            await buttonInteraction.showModal(modal);
-
             try {
+                let buttonInteraction = await quizMessage.awaitMessageComponent({
+                    filter: (interaction: any) => (interaction.customId === `${this.session.id}:submit:button`) && (interaction.user.id === this.session.user.id),
+                    time: this.session.timeLimit
+                });
+                
+                const modal = {
+                    custom_id: `${this.session.id}:modal`,
+                    title: 'Submit Answer',
+                    components: [
+                        {
+                            type: 18,
+                            label: `Question ${this.session.questionNumber} - ${this.session.currentQuestion.question}`,
+                            description: 'Enter your answer here',
+                            component: {
+                                type: 4,
+                                custom_id: 'answer',
+                                style: 2,
+                                min_length: 2,
+                                max_length: 4000,
+                                placeholder: 'A very interesting question response.',
+                                required: true
+                            }
+                        }
+                    ]
+                };
+
+                if (modal.components[0].label.length > 45) {
+                    modal.components[0].label = `Question ${this.session.questionNumber}`;
+                };
+
+                await buttonInteraction.showModal(modal);
+
                 let modalInteraction = await buttonInteraction.awaitModalSubmit({
                     filter: (interaction: any) => (interaction.customId === modal.custom_id) && (interaction.user.id === this.session.user.id),
                     time: this.session.timeLimit
@@ -255,9 +252,9 @@ export default class TriviaSession {
                     await this.sendMessage({ color: 0xff4040, heading: 'Incorrect', content: `The correct answer is **${this.session.currentQuestion.answers[0]}**. ${failMessages[Math.floor(crypto.randomInt(0, failMessages.length))]}` });
                     await new Promise(resolve => setTimeout(resolve, 5000));
                 }
-            } catch (err) {
-                this.sendMessage({ color: 0xff4040, heading: 'Time\'s up!', content: `The correct answer was **${this.session.currentQuestion!.answers[0]}**. Your final score is **${this.session.score}**.`});
-                this.endGame();
+            } catch {
+                await this.sendMessage({ color: 0xff4040, heading: 'Time\'s up!', content: `The correct answer was **${this.session.currentQuestion!.answers[0]}**. Moving on...`});
+                await new Promise(resolve => setTimeout(resolve, 5000));
             }
         }
     }

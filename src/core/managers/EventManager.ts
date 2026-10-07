@@ -9,7 +9,6 @@ export class EventManager {
     private _handlers: Map<string, any>;
     private _listeners: Record<string, Array<any>>;
     private _boundListeners: Map<string, any>;
-    private events: string[];
 
     constructor(bot: DiscordClient) {
         this.bot = bot;
@@ -17,9 +16,6 @@ export class EventManager {
         this._handlers = new Map();
         this._listeners = {};
         this._boundListeners = new Map();
-        this.events = [
-            'interactionCreate'
-        ];
 
         this.loadHandlers();
     }
@@ -41,7 +37,7 @@ export class EventManager {
             this.client.on(handler.name, (...args) => handler(this, ...args));
             console.debug(`[EventManager] Registering ${handler.name} handler`);
         }
-        console.info(`[EventManager] Registered ${this.events.length} handlers`);
+        console.info(`[EventManager] Registered ${this._handlers.size} handlers`);
     };
 
     public async registerListener(event: string, listener: any) {

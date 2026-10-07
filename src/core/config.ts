@@ -11,9 +11,10 @@ const config: ClientConfig = {
         '546800805060280352', // Quantum Biotics, Inc.
         '370708369951948800' // Avatar: The Last Airbender
     ],
+    avatarGuild: '370708369951948800',
     client: {
         token: process.env.TOKEN as string,
-        status: 'Trivia! Use /trivia to begin',
+        status: 'Trivia! Get started using /trivia',
         options: {
             intents: [
                 GatewayIntentBits.GuildScheduledEvents
