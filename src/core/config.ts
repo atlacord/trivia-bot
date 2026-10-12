@@ -11,7 +11,11 @@ const config: ClientConfig = {
     devMode: false,
     private: false,
     developers: [
-        '254814547326533632' // Kyle
+        // Kyle
+        {
+            id: '254814547326533632',
+            website: 'https://soda.gg'
+        }
     ],
     guilds: [
         '546800805060280352', // Quantum Biotics, Inc.

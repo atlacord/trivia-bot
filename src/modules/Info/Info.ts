@@ -4,6 +4,7 @@ import moment from 'moment';
 import 'moment-duration-format';
 //@ts-ignore
 import pkg from '../../../package.json';
+import * as lists from '../../lib/trivia/lists';
 
 export default class Info extends Command {
     public name         : string = 'info';
@@ -15,11 +16,18 @@ export default class Info extends Command {
     public options      : any    =  {};
 
     public async execute({ interaction, options }: CommandData): Promise<any> {
+        const trivialists: string[] = Object.keys(lists).sort();
         const duration = moment.duration(process.uptime()).format(' D [days], H [hrs], m [mins], s [secs]');
         let team = [];
         for (let i of this.bot.config.developers) {
-            let u: User = await this.bot.client.users.fetch(i);
-            team.push(u.username);
+            let u: User = await this.bot.client.users.fetch(i.id);
+            let entry;
+            if (i.website) {
+                entry = `[${u.username}](${i.website})`
+            } else {
+                entry = u.username
+            };
+            team.push(entry);
         }
 
         let embed = {
@@ -28,12 +36,16 @@ export default class Info extends Command {
             thumbnail: {
                 url: this.bot.user.avatarURL() as string
             },
+            description: pkg.description,
             fields: [
-                { name: 'Description', value: pkg.description },
-                { name: 'Version', value: pkg.version, inline: true },
-                { name: 'Library', value: 'discord.js', inline: true },
-                { name: 'Created', value: `<t:${Math.floor(this.bot.user.createdAt.getTime() / 1000)}:F>` },
-                { name: 'Developers', value: team.join(', ') }
+                { name: 'Version',          value: pkg.version,                                                         inline: true },
+                { name: 'Language',         value: 'TypeScript',                                                        inline: true },
+                { name: 'Library',          value: 'discord.js',                                                        inline: true },
+                { name: 'Servers',          value: this.client.guilds.cache.size.toString(),                            inline: true },
+                { name: 'Users',            value: this.client.users.cache.size.toString(),                             inline: true },
+                { name: 'Trivia Lists',     value: trivialists.length.toString(),                                       inline: true },
+                { name: 'Joined Discord',   value: `<t:${Math.floor(this.bot.user.createdAt.getTime() / 1000)}:D>`,     inline: false },
+                { name: 'Developers',       value: team.join(', '),                                                     inline: false }
             ],
             footer: { text: `${this.bot.user.username} | PID: ${process.pid} | Uptime: ${duration}`}
         };
@@ -43,8 +55,14 @@ export default class Info extends Command {
             components: [
                 {
                     type: 2,
-                    label: '⚠️ Report issues',
+                    label: 'Source Code',
                     url: 'https://github.com/atlacord/trivia-bot',
+                    style: 5
+                },
+                {
+                    type: 2,
+                    label: 'Report Issues',
+                    url: 'https://discord.gg/avatar',
                     style: 5
                 }
             ]

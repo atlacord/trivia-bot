@@ -1,5 +1,10 @@
 import { ClientOptions } from 'discord.js';
 
+interface Developer {
+    id: string;
+    website?: string
+}
+
 export interface ClientConfig {
     name: string;
     version: string;
@@ -7,7 +12,7 @@ export interface ClientConfig {
     logLevel: string;
     devMode: boolean;
     private: boolean;
-    developers: string[];
+    developers: Developer[];
     guilds: string[];
     avatarGuild: string;
     client: {

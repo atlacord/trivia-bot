@@ -8,7 +8,8 @@ The bot itself is very much still a work in progress. We welcome any contributio
 ```ts
 {
   question: string,
-  answers: string[]
+  answers: string[],
+  image?: string
 }
 ```
-Eventually, an image field will be added to migrate the legacy questions with image links. That way, they will be embedded in the response component.
+Images are optional. If included, it will be embedded directly into the question component.
