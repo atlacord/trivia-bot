@@ -1,6 +1,6 @@
 {
   "name": "trivia-bot",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A Discord application specializing in trivia.",
   "main": "src/index.js",
   "scripts": {
@@ -19,10 +19,14 @@
   },
   "homepage": "https://github.com/atlacord/trivia-bot#readme",
   "dependencies": {
+    "@ayanaware/logger": "^2.3.8",
+    "@redpill-paris/winston-limit-transport": "^1.0.1",
+    "chalk": "^6.0.1",
     "discord.js": "^14.27.0",
     "dotenv": "^18.0.5",
     "moment": "^2.31.0",
-    "moment-duration-format": "^2.3.2"
+    "moment-duration-format": "^2.3.2",
+    "winston": "^3.19.0"
   },
   "devDependencies": {
     "@types/moment-duration-format": "^2.2.7",

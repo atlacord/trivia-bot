@@ -1,5 +1,6 @@
 import { Client, ClientUser, PresenceStatusData, REST } from 'discord.js';
 import config from './config';
+import logger from './Logger';
 import { CommandCollection } from './collections/CommandCollection';
 import { EventManager } from './managers/EventManager';
 import { Command } from '../lib/structures';
@@ -48,6 +49,10 @@ export default class DiscordClient {
         return config;
     }
 
+    get logger() {
+        return logger;
+    }
+
     get commands() {
         return this._commands;
     }
@@ -57,7 +62,7 @@ export default class DiscordClient {
     }
 
     public setup(options?: any) {
-        console.debug(`[DiscordClient] Configuring client`)
+        logger.debug(`[DiscordClient] Configuring client`)
         this.options = options || {};
 
         const clientOptions = config.client.options;
@@ -84,22 +89,21 @@ export default class DiscordClient {
     public changeStatus(playingStatus: string, status: PresenceStatusData) {
         this.playingStatus = playingStatus;
         this._client.user!.setPresence({ activities: [{ name: this.playingStatus }], status: status});
-        console.log(`[DiscordClient] Changed the application status to ${this.playingStatus}`);
+        logger.debug(`[DiscordClient] Changed the application status to ${this.playingStatus}`);
     };
 
     public connect() {
-        console.debug(`[DiscordClient] Connecting to Discord`)
+        logger.info(`[DiscordClient] Connecting to Discord`)
         this.client.login();
     };
 
     public ready() {
-        console.info(`[DiscordClient] ${this.config.name} online, serving ${this.client.guilds.cache.size} guilds`);
         if (this._client.user) {
             this.user = this._client.user;
         };
 
         this.isReady = true;
-        
+        logger.info(`[DiscordClient] ${this.config.name} online as ${this.user.username}#${this.user.discriminator}, serving ${this.client.guilds.cache.size} guilds`);
         this.changeStatus(config.client.status, 'online');
 
         // Register slash commands
@@ -108,7 +112,7 @@ export default class DiscordClient {
 
     public handleError(err: any) {
         if (!err) {
-            return console.error('An undefined exception occurred.');
+            return logger.error('An undefined exception occurred.');
         }
 
         try {
@@ -120,16 +124,16 @@ export default class DiscordClient {
                     'Connection reset by peer'
                 ].includes(err.message)
             ) {
-                return console.warn(err);
+                return logger.warn(err);
             }
 
             if (err?.code === 1001) {
-                return console.warn(err);
+                return logger.warn(err);
             }
 
-            console.error(err.stack ?? err);
+            logger.error(err.stack ?? err);
         } catch (e) {
-            console.error(e);
+            logger.error(e);
         }
     };
 }

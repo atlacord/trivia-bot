@@ -7,20 +7,20 @@ export default async function interactionCreate(manager: EventManager, interacti
             const command = manager.bot.commands!.get(interaction.commandName);
 
             if (!command) {
-                return console.error(`[interactionCreate] No command found, ignoring interaction`)
+                return manager.bot.logger.error(`[interactionCreate] No command found, ignoring interaction`)
             }
 
             try {
                 await command.execute({ interaction: interaction, context: { name: interaction.commandName, id: interaction.commandId} });
             } catch (err: any) {
-                console.error(`[interactionCreate] An error occurred while running ${interaction.commandName}: ${err.stack}`)
+                manager.bot.logger.error(`[interactionCreate] An error occurred while running ${interaction.commandName}: ${err.stack}`)
             };
         }
         case InteractionType.ApplicationCommandAutocomplete: {
             const command = manager.bot.commands!.get(interaction.commandName);
 
             if (!command) {
-                return console.error(`[interactionCreate] Autocomplete not found for command, ignoring interaction`)
+                return manager.bot.logger.error(`[interactionCreate] Autocomplete not found for command, ignoring interaction`)
             };
 
             try {
@@ -28,7 +28,7 @@ export default async function interactionCreate(manager: EventManager, interacti
                     await command.autocomplete(interaction);
                 }
             } catch (err) {
-                console.error(err);
+                manager.bot.logger.error(err);
             }
         }
     }

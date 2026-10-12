@@ -30,14 +30,14 @@ export class EventManager {
         for (const file of files) {
             const {default: handler } = await import(path.join(basePath, 'events', file));
             if (!handler) {
-                console.error(`[EventManager] Ignoring invalid event handler`);
+                this.bot.logger.error(`[EventManager] Ignoring invalid event handler`);
                 continue;
             }
             this._handlers.set(handler.name, handler);
             this.client.on(handler.name, (...args) => handler(this, ...args));
-            console.debug(`[EventManager] Registering ${handler.name} handler`);
+            this.bot.logger.debug(`[EventManager] Registering ${handler.name} handler`);
         }
-        console.info(`[EventManager] Registered ${this._handlers.size} handlers`);
+        this.bot.logger.info(`[EventManager] Registered ${this._handlers.size} handlers`);
     };
 
     public async registerListener(event: string, listener: any) {
@@ -66,7 +66,7 @@ export class EventManager {
                     return;
                 };
             } catch (err) {
-                console.error(`[EventManager] An error occurred while loading listener: ${err}`);
+                this.bot.logger.error(`[EventManager] An error occurred while loading listener: ${err}`);
                 return;
             }
         };

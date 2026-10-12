@@ -25,12 +25,12 @@ export class CommandCollection<K, V> extends Collection<K, V> {
 
         try {
             for (const file of folders) {
-                console.debug(`[CommandCollection] Loading module ${file}`);
+                this.bot.logger.debug(`[CommandCollection] Loading module ${file}`);
                 const commandPath = path.join(folderPath, file);
                 this.loadCommands(commandPath);
             }
         } catch (err) {
-            console.error(err);
+            this.bot.logger.error(err);
         };
     };
 
@@ -49,7 +49,7 @@ export class CommandCollection<K, V> extends Collection<K, V> {
                 };
             }
         } catch (err) {
-            console.error(err);
+            this.bot.logger.error(err);
         }
     };
 
@@ -60,12 +60,12 @@ export class CommandCollection<K, V> extends Collection<K, V> {
     register(Command: any) {
         // Ignore any files that aren't valid commands
         if (Object.getPrototypeOf(Command).name !== 'Command') {
-            return console.debug(`[CommandCollection] Skipping unknown command`)
+            return this.bot.logger.debug(`[CommandCollection] Skipping unknown command`)
         }
         
         // Instantiate the command
         let command = new Command(this.bot);
-        console.debug(`[CommandCollection] Registering command ${command.name}`);
+        this.bot.logger.debug(`[CommandCollection] Registering command ${command.name}`);
         
         this.set(command.name, command); // Add to the command collection
         this.slashCommands.push(command.slashMetadata()); // Push command metadata to be registered as a slash command
@@ -82,9 +82,9 @@ export class CommandCollection<K, V> extends Collection<K, V> {
         try {
             // Register all of the commands with Discord at once
             const data: any = await this.bot.restClient.put(Routes.applicationCommands(this.bot.client.user!.id), { body: commands });
-            console.debug(`[CommandCollection] Successfully loaded ${data.length} application commands.`)
+            this.bot.logger.debug(`[CommandCollection] Successfully loaded ${data.length} application commands.`)
         } catch (err) {
-            console.error(err);
+            this.bot.logger.error(err);
         }
     }
 }

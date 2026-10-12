@@ -11,9 +11,14 @@ export default class Trivia extends Command {
                                         {
                                             type: 3,
                                             name: 'list',
-                                            description: 'A trivia topic',
+                                            description: 'A trivia topic (topic will be random if don\'t specify a topic)',
                                             autocomplete: true
                                         },
+                                        {
+                                            type: 4,
+                                            name: 'questions',
+                                            description: 'The amount of questions in your trivia session (defaults to 10)'
+                                        }
                                     ];
     public cooldown     : number = 10000;
     public permissions  : BigInt = PermissionFlagsBits.ViewChannel;
@@ -34,7 +39,7 @@ export default class Trivia extends Command {
             if (err.code === 'AutocompleteInteractionOptionNoFocusedOption') {
                 return;
             };
-            console.error(err);
+            this.bot.logger.error(err);
         };
     }
 
@@ -50,6 +55,7 @@ export default class Trivia extends Command {
 
         let listArg: any = interaction.options.get('list') || null;
         let list = this.getList(listArg);
+        let maxQuestions: any = interaction.options.get('questions') || null;
 
         let identifier;
         if (!listArg) {
@@ -57,6 +63,13 @@ export default class Trivia extends Command {
         } else {
             identifier = listArg.value
         };
-        return new TriviaSession(this.bot, interaction, { id: `trivia:${identifier}:${interaction.user.id}`, user: interaction.user, list: list});
+        let sessionOptions = {
+            id: `trivia:${identifier}:${interaction.user.id}`,
+            user: interaction.user,
+            list: list,
+            maxQuestions: maxQuestions.value
+        };
+
+        return new TriviaSession(this.bot, interaction, sessionOptions);
     };
 }

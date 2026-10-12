@@ -1,9 +1,14 @@
 import { GatewayIntentBits } from 'discord.js';
 import { ClientConfig } from '../lib/types';
+//@ts-ignore
+import pkg from '../../package.json';
 
 const config: ClientConfig = {
     name: 'Trivia',
-    devMode: false,
+    version: pkg.version,
+    author: pkg.author,
+    logLevel: process.env.LOG_LEVEL || 'info',
+    devMode: true,
     developers: [
         '254814547326533632' // Kyle
     ],

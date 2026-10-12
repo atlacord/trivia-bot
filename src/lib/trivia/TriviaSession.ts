@@ -45,7 +45,7 @@ export default class TriviaSession {
     };
 
     public createSession(options: SessionOptions): Session {
-        console.debug(`[TriviaSession] Initializing new session ${options.id} in ${this.interaction.guildId}`);
+        this.bot.logger.debug(`[TriviaSession] Initializing new session ${options.id} in ${this.interaction.guildId}`);
         return {
             id: options.id,
             user: options.user,
@@ -121,7 +121,7 @@ export default class TriviaSession {
     }
 
     public endGame(): boolean {
-        console.debug(`[TriviaSession] Closing session ${this.session.id}`)
+        this.bot.logger.debug(`[TriviaSession] Closing session ${this.session.id}`)
         this.playing = false;
         return false;
     };
@@ -136,7 +136,8 @@ export default class TriviaSession {
     public async runTrivia() {
         while (this.playing) {
             // End game if user exceeds the maximum score or questions
-            if ((this.session.maxScore && (this.session.score >= this.session.maxScore) || this.session.questionNumber > this.session.maxQuestions)) {
+            // if ((this.session.maxScore && (this.session.score >= this.session.maxScore) || this.session.questionNumber > this.session.maxQuestions)) {
+            if (this.session.questionNumber >= this.session.maxQuestions) {
                 await this.sendMessage({ color: 0xff4040, heading: 'Game Over', content: 'We\'re out of questions! Thanks for playing!'});
                 this.endGame();
                 break;
@@ -220,7 +221,6 @@ export default class TriviaSession {
                                 type: 4,
                                 custom_id: 'answer',
                                 style: 2,
-                                min_length: 2,
                                 max_length: 4000,
                                 placeholder: 'A very interesting question response.',
                                 required: true
