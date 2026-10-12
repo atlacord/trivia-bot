@@ -117,7 +117,9 @@ export default class DiscordClient {
         this.commands!.refreshSlashCommands();
 
         // Leave unapproved guilds
-        this.checkGuilds();
+        if (config.private) {
+            this.checkGuilds();
+        };
     };
 
     /**

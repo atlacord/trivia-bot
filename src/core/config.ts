@@ -9,6 +9,7 @@ const config: ClientConfig = {
     author: pkg.author,
     logLevel: process.env.LOG_LEVEL || 'info',
     devMode: false,
+    private: false,
     developers: [
         '254814547326533632' // Kyle
     ],

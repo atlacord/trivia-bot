@@ -6,6 +6,7 @@ export interface ClientConfig {
     author: string;
     logLevel: string;
     devMode: boolean;
+    private: boolean;
     developers: string[];
     guilds: string[];
     avatarGuild: string;
