@@ -12,7 +12,7 @@ const config: ClientConfig = {
     developers: [
         '254814547326533632' // Kyle
     ],
-    testGuilds: [
+    guilds: [
         '546800805060280352', // Quantum Biotics, Inc.
         '370708369951948800' // Avatar: The Last Airbender
     ],
@@ -22,11 +22,15 @@ const config: ClientConfig = {
         status: 'Trivia! Get started using /trivia',
         options: {
             intents: [
-                GatewayIntentBits.GuildScheduledEvents
+                GatewayIntentBits.Guilds
             ]
         },
         restOptions: {}
     },
 }
+
+if (config.devMode) {
+    config.client.token = process.env.TOKEN_DEV as string;
+};
 
 export = config;

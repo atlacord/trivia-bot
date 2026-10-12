@@ -7,7 +7,7 @@ export interface ClientConfig {
     logLevel: string;
     devMode: boolean;
     developers: string[];
-    testGuilds: string[];
+    guilds: string[];
     avatarGuild: string;
     client: {
         token: string;
