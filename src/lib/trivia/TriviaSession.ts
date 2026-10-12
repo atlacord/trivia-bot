@@ -5,6 +5,7 @@ import DiscordClient from '../../core/Bot';
 interface Question {
     question: string;
     answers: string[];
+    image?: string;
 };
 
 interface Session {
@@ -180,26 +181,35 @@ export default class TriviaSession {
                         spacing: 1
                     },
                     // Button row for answer submission
+                ]
+            };
+
+            let actionRow = {
+                type: 1,
+                components: [
                     {
-                        type: 1,
-                        components: [
-                            {
-                                type: 2,
-                                custom_id: `${this.session.id}:submit:button`,
-                                label: 'Click here to submit your answer',
-                                style: 1
-                            },
-                            {
-                                type: 2,
-                                style: 3,
-                                custom_id: `${this.session.id}:question:score:button`,
-                                label: `Score: ${this.session.score}`,
-                                disabled: true,
-                            }
-                        ]
+                        type: 2,
+                        custom_id: `${this.session.id}:submit:button`,
+                        label: 'Click here to submit your answer',
+                        style: 1
+                    },
+                    {
+                        type: 2,
+                        style: 3,
+                        custom_id: `${this.session.id}:question:score:button`,
+                        label: `Score: ${this.session.score}`,
+                        disabled: true,
                     }
                 ]
             };
+
+            // Add image if the question has one
+            if (this.session.currentQuestion.image) {
+                container.components.push({ type: 12, items: [{ media: { url: this.session.currentQuestion.image }}]})
+            };
+
+            // Finally, add the buttons
+            container.components.push(actionRow);
 
             let quizMessage = await this.sendMessage({}, container);
 

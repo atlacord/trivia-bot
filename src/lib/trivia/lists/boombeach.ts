@@ -834,7 +834,8 @@ export const boombeach = [
     answers: [
       'No smoking: http://i.imgur.com/Tk49o1E.jpg',
       'No smoking'
-    ]
+    ],
+    image: 'http://i.imgur.com/Tk49o1E.jpg'
   },
   {
     question: 'Which Mega Crab defence is this? https://goo.gl/IFcaHL',
@@ -858,10 +859,11 @@ export const boombeach = [
     ]
   },
   {
-    question: 'How many Hero Tokens are in this crate? http://i.imgur.com/fSYlcgi.jpg',
+    question: 'How many Hero Tokens are in this crate? ',
     answers: [
       'one',
       '1'
-    ]
+    ],
+    image: 'http://i.imgur.com/fSYlcgi.jpg'
   }
 ]

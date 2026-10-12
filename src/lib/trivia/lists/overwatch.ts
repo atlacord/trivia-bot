@@ -1672,123 +1672,142 @@ export const overwatch = [
     ]
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/d02tYI5.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Dorado'
-    ]
+    ],
+    image: 'https://i.imgur.com/d02tYI5.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/VFDOLXR.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Dorado'
-    ]
+    ],
+    image: 'https://i.imgur.com/VFDOLXR.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/XLgLEdh.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Kings Row',
       "King's Row"
-    ]
+    ],
+    image: 'https://i.imgur.com/XLgLEdh.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/fbW965j.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Hanamura'
-    ]
+    ],
+    image: 'https://i.imgur.com/fbW965j.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/NMQDM7y.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Hanamura'
-    ]
+    ],
+    image: 'https://i.imgur.com/NMQDM7y.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/vxqkKQ0.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Kings Row',
       "King's Row"
-    ]
+    ],
+    image: 'https://i.imgur.com/vxqkKQ0.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/ZyVeLTU.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Lijiang Tower'
-    ]
+    ],
+    image: 'https://i.imgur.com/ZyVeLTU.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/Yk8vqgn.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Hollywood'
-    ]
+    ],
+    image: 'https://i.imgur.com/Yk8vqgn.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/3WKgUfA.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Hollywood'
-    ]
+    ],
+    image: 'https://i.imgur.com/3WKgUfA.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/uMcjqeW.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Hollywood'
-    ]
+    ],
+    image: 'https://i.imgur.com/uMcjqeW.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/G7xpRlQ.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Hollywood'
-    ]
+    ],
+    image: 'https://i.imgur.com/G7xpRlQ.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/KXLulKa.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Oasis'
-    ]
+    ],
+    image: 'https://i.imgur.com/KXLulKa.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/cNjKeE3.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Oasis'
-    ]
+    ],
+    image: 'https://i.imgur.com/cNjKeE3.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/2qrMC16.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Volskaya Industries',
       'Volskaya'
-    ]
+    ],
+    image: 'https://i.imgur.com/2qrMC16.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/xuO8PDw.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Volskaya Industries',
       'Volskaya'
-    ]
+    ],
+    image: 'https://i.imgur.com/xuO8PDw.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/qgyW1LF.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Volskaya Industries',
       'Volskaya'
-    ]
+    ],
+    image: 'https://i.imgur.com/qgyW1LF.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/h8zqtSf.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Oasis'
-    ]
+    ],
+    image: 'https://i.imgur.com/h8zqtSf.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/YlMy2iE.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Lijiang Tower'
-    ]
+    ],
+    image: 'https://i.imgur.com/YlMy2iE.jpg'
   },
   {
-    question: 'On which map was this screenshot taken? https://i.imgur.com/5bXsDP1.jpg',
+    question: 'On which map was this screenshot taken? ',
     answers: [
       'Lijiang Tower'
-    ]
+    ],
+    image: 'https://i.imgur.com/5bXsDP1.jpg'
   },
   {
     question: 'Over the design period for Overwatch, Bastion had several different ults before he got Tank mode how many including his current one did he have?',

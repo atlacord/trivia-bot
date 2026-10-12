@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 
+const IMAGE_REGEX = /(http(s?):)([\/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)/gm
+
 async function convertTriviaFiles(directory) {
     const files = fs.readdirSync(directory);
 
@@ -25,10 +27,20 @@ async function convertTriviaFiles(directory) {
                 for (let i in s) {
                     s[i] = s[i].replaceAll('\r', '');
                 }
-                parsedQuestions.push({
+
+                let image = l.match(IMAGE_REGEX);
+
+                let payload = {
                     question: s[0],
                     answers: [...s.slice(1)]
-                })
+                };
+
+                if (image !== null) {
+                    payload.image = image[0]
+                    payload.question = payload.question.replace(IMAGE_REGEX, '')
+                };
+
+                parsedQuestions.push(payload)
             };
             console.log(parsedQuestions);
             fs.writeFileSync(`src/lib/trivia/lists/${file.slice(0, -4)}.ts`, `export const ${file.slice(0, -4)} = ${util.inspect(parsedQuestions, { maxArrayLength: Infinity, depth: Infinity, compact: false })}`)

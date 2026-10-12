@@ -2422,189 +2422,218 @@ export const pokemon = [
     ]
   },
   {
-    question: 'Who is this http://i.imgur.com/yW5VlAy.png ?',
+    question: 'Who is this  ?',
     answers: [
       'Ethan'
-    ]
+    ],
+    image: 'http://i.imgur.com/yW5VlAy.png'
   },
   {
-    question: 'This Wormadam is Bug and what other type http://i.imgur.com/KN84zOV.png ?',
+    question: 'This Wormadam is Bug and what other type  ?',
     answers: [
       'Steel'
-    ]
+    ],
+    image: 'http://i.imgur.com/KN84zOV.png'
   },
   {
-    question: 'What Badge is this http://i.imgur.com/bq7pO9f.png ?',
+    question: 'What Badge is this  ?',
     answers: [
       'Soul Badge',
       'Soul'
-    ]
+    ],
+    image: 'http://i.imgur.com/bq7pO9f.png'
   },
   {
-    question: 'What Badge is this http://i.imgur.com/uNA1qIc.png ?',
+    question: 'What Badge is this  ?',
     answers: [
       'Balance Badge',
       'balance'
-    ]
+    ],
+    image: 'http://i.imgur.com/uNA1qIc.png'
   },
   {
-    question: 'This is the symbol for what http://i.imgur.com/1kSfua0.png ?',
+    question: 'This is the symbol for what  ?',
     answers: [
       'Team Valor',
       'Valor'
-    ]
+    ],
+    image: 'http://i.imgur.com/1kSfua0.png'
   },
   {
-    question: 'What item is this http://i.imgur.com/ENr8xkN.png ?',
+    question: 'What item is this  ?',
     answers: [
       "King's Rock",
       'Kings rock'
-    ]
+    ],
+    image: 'http://i.imgur.com/ENr8xkN.png'
   },
   {
-    question: 'What city is this http://i.imgur.com/AGWh0QY.png ?',
+    question: 'What city is this  ?',
     answers: [
       'Lilycove City',
       'Lilycove'
-    ]
+    ],
+    image: 'http://i.imgur.com/AGWh0QY.png'
   },
   {
-    question: 'What item is this http://i.imgur.com/aE0K6WT.png ?',
+    question: 'What item is this  ?',
     answers: [
       'Hyper Potion'
-    ]
+    ],
+    image: 'http://i.imgur.com/aE0K6WT.png'
   },
   {
-    question: 'What berry is this http://i.imgur.com/zHQKMI5.png ?',
+    question: 'What berry is this  ?',
     answers: [
       'Rawst Berry',
       'Rawst'
-    ]
+    ],
+    image: 'http://i.imgur.com/zHQKMI5.png'
   },
   {
-    question: "Who's that Pok�mon http://i.imgur.com/VdqNOJR.png ?",
+    question: "Who's that Pok�mon  ?",
     answers: [
       'Kingler'
-    ]
+    ],
+    image: 'http://i.imgur.com/VdqNOJR.png'
   },
   {
-    question: "Who's that Pok�mon http://i.imgur.com/9r7j6vX.png ?",
+    question: "Who's that Pok�mon  ?",
     answers: [
       'Pikachu'
-    ]
+    ],
+    image: 'http://i.imgur.com/9r7j6vX.png'
   },
   {
-    question: 'Who is the Gym leader of this Gym http://i.imgur.com/uAFrxDh.png ?',
+    question: 'Who is the Gym leader of this Gym  ?',
     answers: [
       'Morty'
-    ]
+    ],
+    image: 'http://i.imgur.com/uAFrxDh.png'
   },
   {
-    question: 'What item is this http://i.imgur.com/60CIAkJ.png ?',
+    question: 'What item is this  ?',
     answers: [
       'Pokeblock Case'
-    ]
+    ],
+    image: 'http://i.imgur.com/60CIAkJ.png'
   },
   {
-    question: 'What Region is this http://i.imgur.com/1SDz8Vt.png ?',
+    question: 'What Region is this  ?',
     answers: [
       'Sinnoh'
-    ]
+    ],
+    image: 'http://i.imgur.com/1SDz8Vt.png'
   },
   {
-    question: 'What Region is this http://i.imgur.com/Y9FRa1b.png ?',
+    question: 'What Region is this  ?',
     answers: [
       'Hoenn'
-    ]
+    ],
+    image: 'http://i.imgur.com/Y9FRa1b.png'
   },
   {
-    question: "Who's that Trainer http://i.imgur.com/BotTQX0.png ?",
+    question: "Who's that Trainer  ?",
     answers: [
       'Hilbert'
-    ]
+    ],
+    image: 'http://i.imgur.com/BotTQX0.png'
   },
   {
-    question: "Who's that Trainer http://i.imgur.com/XT9YYCA.png ?",
+    question: "Who's that Trainer  ?",
     answers: [
       'Whitney'
-    ]
+    ],
+    image: 'http://i.imgur.com/XT9YYCA.png'
   },
   {
-    question: 'What letter is this http://i.imgur.com/CBxO0Vl.png ?',
+    question: 'What letter is this  ?',
     answers: [
       'G'
-    ]
+    ],
+    image: 'http://i.imgur.com/CBxO0Vl.png'
   },
   {
-    question: "Who's that Trainer http://i.imgur.com/9aQmUCo.png ?",
+    question: "Who's that Trainer  ?",
     answers: [
       'Kris'
-    ]
+    ],
+    image: 'http://i.imgur.com/9aQmUCo.png'
   },
   {
-    question: "Who's that Trainer http://i.imgur.com/FHr6z9u.png ?",
+    question: "Who's that Trainer  ?",
     answers: [
       'Koga'
-    ]
+    ],
+    image: 'http://i.imgur.com/FHr6z9u.png'
   },
   {
-    question: 'What legendary is found here http://i.imgur.com/blmTRT1.png ?',
+    question: 'What legendary is found here  ?',
     answers: [
       'Zapdos'
-    ]
+    ],
+    image: 'http://i.imgur.com/blmTRT1.png'
   },
   {
-    question: 'What legendary is found here http://i.imgur.com/ihgTwAr.png ?',
+    question: 'What legendary is found here  ?',
     answers: [
       'Suicune'
-    ]
+    ],
+    image: 'http://i.imgur.com/ihgTwAr.png'
   },
   {
-    question: 'Which of the following is not a real forme of Florges http://i.imgur.com/frZl8LY.png ?',
+    question: 'Which of the following is not a real forme of Florges  ?',
     answers: [
       '#2',
       '2'
-    ]
+    ],
+    image: 'http://i.imgur.com/frZl8LY.png'
   },
   {
-    question: 'Which of the following is not a real forme of Vivillon http://i.imgur.com/pnOTZMS.png ?',
+    question: 'Which of the following is not a real forme of Vivillon  ?',
     answers: [
       '#6',
       '6'
-    ]
+    ],
+    image: 'http://i.imgur.com/pnOTZMS.png'
   },
   {
-    question: 'What kind of ball is this http://i.imgur.com/vyrULUt.png ?',
+    question: 'What kind of ball is this  ?',
     answers: [
       'Timer Ball',
       'Timer'
-    ]
+    ],
+    image: 'http://i.imgur.com/vyrULUt.png'
   },
   {
-    question: 'What type is this in Pok�mon TCG http://i.imgur.com/N1qd6ra.png ?',
+    question: 'What type is this in Pok�mon TCG  ?',
     answers: [
       'Dragon'
-    ]
+    ],
+    image: 'http://i.imgur.com/N1qd6ra.png'
   },
   {
-    question: 'What type is this card http://i.imgur.com/kmU1x27.jpg ?',
+    question: 'What type is this card  ?',
     answers: [
       'Colorless',
       'colourless'
-    ]
+    ],
+    image: 'http://i.imgur.com/kmU1x27.jpg'
   },
   {
-    question: 'What item is this http://i.imgur.com/0Hs5gwa.png ?',
+    question: 'What item is this  ?',
     answers: [
       'Thunderstone',
       'Thunder Stone'
-    ]
+    ],
+    image: 'http://i.imgur.com/0Hs5gwa.png'
   },
   {
-    question: 'What item is this http://i.imgur.com/tSmriuj.png ?',
+    question: 'What item is this  ?',
     answers: [
       'Dawn Stone',
       'Dawnstone'
-    ]
+    ],
+    image: 'http://i.imgur.com/tSmriuj.png'
   }
 ]
