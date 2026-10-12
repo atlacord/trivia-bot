@@ -115,6 +115,8 @@ export default class DiscordClient {
 
         // Register slash commands
         this.commands!.refreshSlashCommands();
+
+        // Leave unapproved guilds
         this.checkGuilds();
     };
 
@@ -123,7 +125,7 @@ export default class DiscordClient {
      */
     public async checkGuilds() {
         this.client.guilds.cache.forEach(async (g) => {
-            if (!this.config.guilds.includes(g.id)) {
+            if ((!this.config.guilds.includes(g.id))) {
                 let owner = await g.fetchOwner();
                 this.logger.info(`[DiscordClient] Leaving unapproved guild ${g.name} (${g.id}), owned by ${owner.user.username} (${owner.id})`)
                 g.leave();
