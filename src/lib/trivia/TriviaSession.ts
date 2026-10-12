@@ -46,7 +46,7 @@ export default class TriviaSession {
     };
 
     public createSession(options: SessionOptions): Session {
-        this.bot.logger.debug(`[TriviaSession] Initializing new session ${options.id} in ${this.interaction.guildId}`);
+        this.bot.logger.info(`[TriviaSession] Initializing new session ${options.id} in ${this.interaction.guildId}`);
         return {
             id: options.id,
             user: options.user,
@@ -122,7 +122,7 @@ export default class TriviaSession {
     }
 
     public endGame(): boolean {
-        this.bot.logger.debug(`[TriviaSession] Closing session ${this.session.id}`)
+        this.bot.logger.info(`[TriviaSession] Closing session ${this.session.id}`)
         this.playing = false;
         return false;
     };
