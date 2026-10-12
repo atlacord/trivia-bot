@@ -1,6 +1,6 @@
 import { Client, ClientUser, PresenceStatusData, REST } from 'discord.js';
 import config from './config';
-import logger from './Logger';
+import { Logger } from '@atla/logger';
 import { CommandCollection } from './collections/CommandCollection';
 import { EventManager } from './managers/EventManager';
 import { Command } from '../lib/structures';
@@ -13,6 +13,8 @@ export default class DiscordClient {
 
     private _client!: Client;
     private _restClient!: REST;
+
+    public _logger: any;
 
     public user!: ClientUser;
     private playingStatus!: string;
@@ -50,7 +52,7 @@ export default class DiscordClient {
     }
 
     get logger() {
-        return logger;
+        return this._logger;
     }
 
     get commands() {
@@ -62,14 +64,19 @@ export default class DiscordClient {
     }
 
     public setup(options?: any) {
-        logger.debug(`[DiscordClient] Configuring client`)
+        this._logger = new Logger(config);
+        if (config.devMode) {
+            this.logger.level = 'debug';
+        };
+        
+        this.logger.debug(`[DiscordClient] Configuring client`)
         this.options = options || {};
 
         const clientOptions = config.client.options;
         const restOptions = config.client.restOptions;
         
         this._client = new Client(clientOptions);
-        this._restClient = new REST(restOptions);;
+        this._restClient = new REST(restOptions);
 
         let token = config.client.token;
         this._client.token = token;
@@ -89,11 +96,11 @@ export default class DiscordClient {
     public changeStatus(playingStatus: string, status: PresenceStatusData) {
         this.playingStatus = playingStatus;
         this._client.user!.setPresence({ activities: [{ name: this.playingStatus }], status: status});
-        logger.debug(`[DiscordClient] Changed the application status to ${this.playingStatus}`);
+        this.logger.debug(`[DiscordClient] Changed the application status to ${this.playingStatus}`);
     };
 
     public connect() {
-        logger.info(`[DiscordClient] Connecting to Discord`)
+        this.logger.info(`[DiscordClient] Connecting to Discord`)
         this.client.login();
     };
 
@@ -103,7 +110,7 @@ export default class DiscordClient {
         };
 
         this.isReady = true;
-        logger.info(`[DiscordClient] ${this.config.name} online as ${this.user.username}#${this.user.discriminator}, serving ${this.client.guilds.cache.size} guilds`);
+        this.logger.info(`[DiscordClient] ${this.config.name} online as ${this.user.username}#${this.user.discriminator}, serving ${this.client.guilds.cache.size} guilds`);
         this.changeStatus(config.client.status, 'online');
 
         // Register slash commands
@@ -112,7 +119,7 @@ export default class DiscordClient {
 
     public handleError(err: any) {
         if (!err) {
-            return logger.error('An undefined exception occurred.');
+            return this.logger.error('An undefined exception occurred.');
         }
 
         try {
@@ -124,16 +131,16 @@ export default class DiscordClient {
                     'Connection reset by peer'
                 ].includes(err.message)
             ) {
-                return logger.warn(err);
+                return this.logger.warn(err);
             }
 
             if (err?.code === 1001) {
-                return logger.warn(err);
+                return this.logger.warn(err);
             }
 
-            logger.error(err.stack ?? err);
+            this.logger.error(err.stack ?? err);
         } catch (e) {
-            logger.error(e);
+            this.logger.error(e);
         }
     };
 }
