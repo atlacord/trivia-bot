@@ -42,7 +42,6 @@ export default class Info extends Command {
                 { name: 'Language',         value: 'TypeScript',                                                        inline: true },
                 { name: 'Library',          value: 'discord.js',                                                        inline: true },
                 { name: 'Servers',          value: this.client.guilds.cache.size.toString(),                            inline: true },
-                { name: 'Users',            value: this.client.users.cache.size.toString(),                             inline: true },
                 { name: 'Trivia Lists',     value: trivialists.length.toString(),                                       inline: true },
                 { name: 'Joined Discord',   value: `<t:${Math.floor(this.bot.user.createdAt.getTime() / 1000)}:D>`,     inline: false },
                 { name: 'Developers',       value: team.join(', '),                                                     inline: false }
@@ -53,12 +52,6 @@ export default class Info extends Command {
         let button = {
             type: 1,
             components: [
-                {
-                    type: 2,
-                    label: 'Source Code',
-                    url: 'https://github.com/atlacord/trivia-bot',
-                    style: 5
-                },
                 {
                     type: 2,
                     label: 'Report Issues',

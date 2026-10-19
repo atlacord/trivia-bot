@@ -26,6 +26,9 @@ const config: ClientConfig = {
         token: process.env.TOKEN as string,
         status: 'Trivia! Get started using /trivia',
         options: {
+            allowedMentions: {
+                parse: [ 'users' ],
+            },
             intents: [
                 GatewayIntentBits.Guilds
             ]
