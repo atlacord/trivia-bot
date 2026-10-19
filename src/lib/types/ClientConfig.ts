@@ -22,5 +22,8 @@ export interface ClientConfig {
         options: ClientOptions;
         restOptions: any;
     },
-    logChannel: string;
+    logs: {
+        client: string;
+        session: string;
+    };
 }

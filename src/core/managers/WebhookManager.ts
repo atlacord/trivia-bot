@@ -18,14 +18,17 @@ export class WebhookManager {
     private client: Client;
     private avatarURL: string;
     private default: WebhookOptions;
-    private logChannel: Channel;
+    private _channels: any;
 
     constructor(bot: DiscordClient) {
         this.bot = bot;
         this.config = bot.config;
         this.client = bot.client;
 
-        this.logChannel = null;
+        this._channels = {
+            client: null,
+            session: null
+        };
 
         this.avatarURL = this.config.client.avatar || null;
 
@@ -35,13 +38,14 @@ export class WebhookManager {
         }
     };
 
-    get log() {
-        return this.logChannel;
+    get channels() {
+        return this._channels;
     };
 
     public async initialize(): Promise<Channel> {
-        this.logChannel = await this.client.channels.fetch(this.bot.config.logChannel);
-        return this.logChannel;
+        this._channels.client = await this.client.channels.fetch(this.config.logs.client);
+        this._channels.session = await this.client.channels.fetch(this.config.logs.session);
+        return this._channels;
     };
 
     /**
@@ -51,7 +55,7 @@ export class WebhookManager {
      * @returns {Webhook} A webhook
     **/
     public async getOrCreate(channel: any, options: WebhookOptions = {}): Promise<Webhook> {
-        channel = channel || this.log;
+        channel = channel || (this._channels.client || this._channels.session);
 		const id = typeof channel === 'string' ? channel : channel.id || null;
 		if (!id) {
 			return Promise.reject('Invalid channel or ID')

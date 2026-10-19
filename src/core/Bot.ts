@@ -141,8 +141,8 @@ export default class DiscordClient {
             },
             timestamp: this.client.readyAt
         }
-        
-        this.webhooks.execute(this.webhooks.log, { embeds: [embed]});
+
+        this.webhooks.execute(this.webhooks.channels.client, { embeds: [embed]});
 
         // Register slash commands
         this.commands!.refreshSlashCommands();

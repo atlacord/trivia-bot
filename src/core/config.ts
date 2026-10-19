@@ -8,7 +8,7 @@ const config: ClientConfig = {
     version: pkg.version,
     author: pkg.author,
     logLevel: process.env.LOG_LEVEL || 'info',
-    devMode: false,
+    devMode: true,
     private: false,
     developers: [
         // Kyle
@@ -35,7 +35,10 @@ const config: ClientConfig = {
         },
         restOptions: {}
     },
-    logChannel: '1561824128883757227'
+    logs: {
+        client: '1561824128883757227',
+        session: '1561852368839114822'
+    }
 }
 
 if (config.devMode) {

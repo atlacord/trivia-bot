@@ -19,9 +19,9 @@ export default async function guildDelete(manager: EventManager, guild: Guild) {
         ],
         footer: {
             text: `ID: ${guild.id}`,
-            timestamp: new Date()
-        }
+        },
+        timestamp: new Date()
     }
-    manager.bot.webhooks.execute(manager.bot.webhooks.log, embed);
+    manager.bot.webhooks.execute(manager.bot.webhooks.channels.client, { embeds: [embed] });
     return manager.bot.logger.info(`[guildDelete] Removed from guild ${guild.name} (${guild.id})`);
 };

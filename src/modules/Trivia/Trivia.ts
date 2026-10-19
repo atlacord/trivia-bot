@@ -67,6 +67,7 @@ export default class Trivia extends Command {
             id: `trivia:${identifier}:${interaction.user.id}`,
             user: interaction.user,
             list: list,
+            topic: listArg.value,
             maxQuestions: maxQuestions.value
         };
 

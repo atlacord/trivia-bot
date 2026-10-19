@@ -2,16 +2,17 @@ import { ChatInputCommandInteraction, MessageFlags, ContainerComponent, Interact
 import crypto from 'crypto';
 import DiscordClient from '../../core/Bot';
 
-interface Question {
+export interface Question {
     question: string;
     answers: string[];
     image?: string;
 };
 
-interface Session {
+export interface Session {
     id: string;
     user: User
     list: Question[];
+    topic: string,
     currentQuestion?: Question;
     questionNumber: number;
     score: number;
@@ -20,10 +21,11 @@ interface Session {
     maxQuestions: number;
 };
 
-interface SessionOptions {
+export interface SessionOptions {
     id: string;
     user: User | any;
     list: Question[];
+    topic: string;
     timeLimit?: number;
     maxScore?: number;
     maxQuestions?: number;
@@ -42,15 +44,16 @@ export default class TriviaSession {
         this.session = this.createSession(options);
         this.reply = new Map();
         this.playing = true;
+        this.bot.client.emit('triviaSessionCreate', this.session, this.interaction.guild)
         this.runTrivia();
     };
 
     public createSession(options: SessionOptions): Session {
-        this.bot.logger.info(`[TriviaSession] Initializing new session ${options.id} in ${this.interaction.guildId}`);
         return {
             id: options.id,
             user: options.user,
             list: options.list,
+            topic: options.topic,
             questionNumber: 0,
             score: 0,
             timeLimit: options.timeLimit || 15000,
@@ -122,7 +125,7 @@ export default class TriviaSession {
     }
 
     public endGame(): boolean {
-        this.bot.logger.info(`[TriviaSession] Closing session ${this.session.id}`)
+        this.bot.client.emit('triviaSessionDelete', this.session, this.interaction.guild)
         this.playing = false;
         return false;
     };
