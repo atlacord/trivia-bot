@@ -2,5 +2,26 @@ import { Guild } from 'discord.js';
 import { EventManager } from '../managers/EventManager';
 
 export default async function guildDelete(manager: EventManager, guild: Guild) {
+    let owner = await manager.bot.client.users.fetch(guild.ownerId);
+    let embed = {
+        color: 0xff4040,
+        author: {
+            name: 'Guild Delete'
+        },
+        thumbnail: {
+            url: guild.iconURL()
+        },
+        description: guild.description || null,
+        fields: [
+            { name: 'Name', value: guild.name },
+            { name: 'Owner', value: `${owner.username} (${owner.id})` },
+            { name: 'Members', value: guild.memberCount }
+        ],
+        footer: {
+            text: `ID: ${guild.id}`,
+            timestamp: new Date()
+        }
+    }
+    manager.bot.webhooks.execute(manager.bot.webhooks.log, embed);
     return manager.bot.logger.info(`[guildDelete] Removed from guild ${guild.name} (${guild.id})`);
 };

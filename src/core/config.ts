@@ -35,6 +35,7 @@ const config: ClientConfig = {
         },
         restOptions: {}
     },
+    logChannel: '1561824128883757227'
 }
 
 if (config.devMode) {

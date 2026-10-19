@@ -4,6 +4,7 @@ import { Logger } from '@atla/logger';
 import { CommandCollection } from './collections/CommandCollection';
 import { EventManager } from './managers/EventManager';
 import { Command } from '../lib/structures';
+import { WebhookManager } from './managers/WebhookManager';
 
 var instance: DiscordClient;
 
@@ -20,7 +21,8 @@ export default class DiscordClient {
     private playingStatus!: string;
 
     public _commands!: CommandCollection<string, Command> | null;
-    public _eventmanager!: EventManager;
+    public _events!: EventManager;
+    public _webhooks!: WebhookManager
 
     public options!: {
         name: string;
@@ -59,8 +61,12 @@ export default class DiscordClient {
         return this._commands;
     }
 
-    get eventManager() {
-        return this._eventmanager;
+    get events() {
+        return this._events;
+    }
+
+    get webhooks() {
+        return this._webhooks;
     }
 
     public setup(options?: any) {
@@ -85,7 +91,8 @@ export default class DiscordClient {
         this.client.once('clientReady', this.ready.bind(this));
 
         this._commands = new CommandCollection(config, this);
-        this._eventmanager = new EventManager(this);
+        this._events = new EventManager(this);
+        this._webhooks = new WebhookManager(this);
 
         this.client.on('error', this.handleError.bind(this));
 
@@ -104,7 +111,7 @@ export default class DiscordClient {
         this.client.login();
     };
 
-    public ready() {
+    public async ready() {
         if (this._client.user) {
             this.user = this._client.user;
         };
@@ -112,6 +119,10 @@ export default class DiscordClient {
         this.isReady = true;
         this.logger.info(`[DiscordClient] ${this.config.name} online as ${this.user.username}#${this.user.discriminator}, serving ${this.client.guilds.cache.size} guilds`);
         this.changeStatus(config.client.status, 'online');
+
+        // Link log channel to webhook manager
+        await this.webhooks.initialize();
+        this.webhooks.execute(this.webhooks.log, { content: 'Ready' });
 
         // Register slash commands
         this.commands!.refreshSlashCommands();

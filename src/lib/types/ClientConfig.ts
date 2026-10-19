@@ -18,7 +18,9 @@ export interface ClientConfig {
     client: {
         token: string;
         status: string;
+        avatar?: string;
         options: ClientOptions;
         restOptions: any;
-    }
+    },
+    logChannel: string;
 }
