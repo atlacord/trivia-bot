@@ -122,7 +122,27 @@ export default class DiscordClient {
 
         // Link log channel to webhook manager
         await this.webhooks.initialize();
-        this.webhooks.execute(this.webhooks.log, { content: 'Ready' });
+        let embed = {
+            color: 0x66ff6b,
+            author: {
+                name: 'Client Ready'
+            },
+            thumbnail: {
+                url: this.client.user.avatarURL()
+            },
+            fields: [
+                { name: 'Name', value: this.client.user.username },
+                { name: 'Commands', value: this.commands.size, inline: true },
+                { name: 'Event Listeners', value: this.events.listeners, inline: true },
+                { name: 'Guilds', value: this.client.guilds.cache.size, inline: true }
+            ],
+            footer: {
+                text: `ID: ${this.client.user.id}`
+            },
+            timestamp: this.client.readyAt
+        }
+        
+        this.webhooks.execute(this.webhooks.log, { embeds: [embed]});
 
         // Register slash commands
         this.commands!.refreshSlashCommands();

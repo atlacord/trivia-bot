@@ -24,6 +24,10 @@ export class EventManager {
         return this._client;
     };
 
+    get listeners(): number {
+        return this._handlers.size;
+    }
+
     public async loadHandlers() {
         const basePath = path.resolve(path.join(__dirname, '../'))
         const files = fs.readdirSync(path.join(basePath, 'events'));

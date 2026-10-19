@@ -67,7 +67,7 @@ export class WebhookManager {
 			};
 
 			if (hook) {
-				Promise.resolve(hook);
+				return Promise.resolve(hook);
 			} else {
 				const wh = await channel.createWebhook({
 					name: options.username || this.bot.config.name,
@@ -94,13 +94,13 @@ export class WebhookManager {
 
         if (webhook) {
             return webhook.send(content)
-        }
-
-        try {
-            const webhook = await this.getOrCreate(channel);
-            return webhook.send(content);
-        } catch (err) {
-            return Promise.reject(err);
+        } else {
+            try {
+                const webhook = await this.getOrCreate(channel);
+                return webhook.send(content);
+            } catch (err) {
+                return Promise.reject(err);
+            }
         }
     }
 }
