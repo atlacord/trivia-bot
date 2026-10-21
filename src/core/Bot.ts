@@ -116,6 +116,9 @@ export default class DiscordClient {
             this.user = this._client.user;
         };
 
+        // Load client application into cache
+        await this.client.application.fetch();
+        
         this.isReady = true;
         this.logger.info(`[DiscordClient] ${this.config.name} online as ${this.user.username}#${this.user.discriminator}, serving ${this.client.guilds.cache.size} guilds`);
         this.changeStatus(config.client.status, 'online');
