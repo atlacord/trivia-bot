@@ -8,9 +8,6 @@ export default async function triviaSessionDelete(manager: EventManager, session
         author: {
             name: 'Trivia Session Deleted'
         },
-        thumbnail: {
-            url: session.user.avatarURL()
-        },
         description: guild.description || null,
         fields: [
             { name: 'User', value: `${session.user.username} (${session.user.id}` },
