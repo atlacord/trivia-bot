@@ -19,8 +19,8 @@ export default class Info extends Command {
         const trivialists: string[] = Object.keys(lists).sort();
         const duration = moment.duration(process.uptime()).format(' D [days], H [hrs], m [mins], s [secs]');
         let team = [];
-        for (let i of this.bot.config.developers) {
-            let u: User = await this.bot.client.users.fetch(i.id);
+        for (let i of this.config.developers) {
+            let u: User = await this.client.users.fetch(i.id);
             let entry;
             if (i.website) {
                 entry = `[${u.username}](${i.website})`
@@ -31,7 +31,7 @@ export default class Info extends Command {
         }
 
         let embed = {
-            title: this.bot.config.name,
+            title: this.config.name,
             color: 0xffe4a8,
             thumbnail: {
                 url: this.bot.user.avatarURL() as string
@@ -54,10 +54,16 @@ export default class Info extends Command {
             components: [
                 {
                     type: 2,
+                    label: 'Invite Bot',
+                    url: this.client.application.customInstallURL || 'https://trivia.atlacord.com',
+                    style: 5
+                },
+                {
+                    type: 2,
                     label: 'Report Issues',
                     url: 'https://discord.gg/avatar',
                     style: 5
-                }
+                },
             ]
         }
         interaction.reply({ embeds: [embed], components: [button] });
