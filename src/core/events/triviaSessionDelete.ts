@@ -8,7 +8,6 @@ export default async function triviaSessionDelete(manager: EventManager, session
         author: {
             name: 'Trivia Session Deleted'
         },
-        description: guild.description || null,
         fields: [
             { name: 'User', value: `${session.user.username} (${session.user.id}` },
             { name: 'Guild', value: `${guild.name} (${guild.id})` },
