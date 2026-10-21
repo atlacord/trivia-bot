@@ -36,8 +36,8 @@ const config: ClientConfig = {
         restOptions: {}
     },
     logs: {
-        client: '1561824128883757227',
-        session: '1561852368839114822'
+        client: process.env.CLIENT_LOG,
+        session: process.env.SESSION_LOG
     }
 }
 

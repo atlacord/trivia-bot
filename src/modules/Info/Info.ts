@@ -36,7 +36,7 @@ export default class Info extends Command {
             thumbnail: {
                 url: this.bot.user.avatarURL() as string
             },
-            description: pkg.description,
+            description: this.client.application.description,
             fields: [
                 { name: 'Version',          value: pkg.version,                                                         inline: true },
                 { name: 'Language',         value: 'TypeScript',                                                        inline: true },

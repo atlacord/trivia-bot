@@ -4,7 +4,6 @@
   "description": "A Discord application specializing in trivia.",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "git pull origin main && tsc -p tsconfig.json",
     "start": "npm run build && pm2 start build/index.js --name 'Trivia'"
   },
@@ -13,7 +12,7 @@
     "url": "git+https://github.com/atlacord/trivia-bot.git"
   },
   "author": "Kyle S <git@kylespa.com>",
-  "license": "MIT",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/atlacord/trivia-bot/issues"
   },
