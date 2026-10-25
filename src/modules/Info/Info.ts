@@ -54,8 +54,14 @@ export default class Info extends Command {
             components: [
                 {
                     type: 2,
-                    label: 'Invite Bot',
-                    url: this.client.application.customInstallURL || 'https://trivia.atlacord.com',
+                    label: 'Website',
+                    url: `https://${this.config.web.host}`,
+                    style: 5
+                },
+                {
+                    type: 2,
+                    label: 'Invite',
+                    url: `https://${this.config.web.host}/invite`,
                     style: 5
                 },
                 {
