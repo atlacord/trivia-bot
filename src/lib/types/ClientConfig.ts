@@ -15,6 +15,9 @@ export interface ClientConfig {
     developers: Developer[];
     guilds: string[];
     avatarGuild: string;
+    web: {
+        host: string;
+    },
     client: {
         token: string;
         status: string;

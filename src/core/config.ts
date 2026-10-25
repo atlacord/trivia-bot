@@ -22,6 +22,9 @@ const config: ClientConfig = {
         '370708369951948800' // Avatar: The Last Airbender
     ],
     avatarGuild: '370708369951948800',
+    web: {
+        host: 'trivia.atlacord.com'
+    },
     client: {
         token: process.env.TOKEN as string,
         status: 'Trivia! Get started using /trivia',
