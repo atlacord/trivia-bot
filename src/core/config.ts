@@ -27,7 +27,7 @@ const config: ClientConfig = {
     },
     client: {
         token: process.env.TOKEN as string,
-        status: 'Trivia! Get started using /trivia',
+        status: 'trivia.atlacord.com | /trivia',
         options: {
             allowedMentions: {
                 parse: [ 'users' ],
