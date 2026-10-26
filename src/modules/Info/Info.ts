@@ -13,6 +13,7 @@ export default class Info extends Command {
     public args         : ApplicationCommandOption[] =  [];
     public cooldown     : number = 5000;
     public permissions  : BigInt = PermissionFlagsBits.ViewChannel;
+    public avatarGuild  : boolean = false;
     public options      : any    =  {};
 
     public async execute({ interaction, options }: CommandData): Promise<any> {

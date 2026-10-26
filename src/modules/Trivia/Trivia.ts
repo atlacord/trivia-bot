@@ -22,6 +22,7 @@ export default class Trivia extends Command {
                                     ];
     public cooldown     : number = 10000;
     public permissions  : BigInt = PermissionFlagsBits.ViewChannel;
+    public avatarGuild  : boolean = false;
     public options      : any    =  {};
 
     public async autocomplete(interaction: any) {
