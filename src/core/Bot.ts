@@ -5,6 +5,7 @@ import { CommandCollection } from './collections/CommandCollection';
 import { EventManager } from './managers/EventManager';
 import { Command } from '../lib/structures';
 import { WebhookManager } from './managers/WebhookManager';
+import { DataStore } from './database';
 
 var instance: DiscordClient;
 
@@ -16,6 +17,7 @@ export default class DiscordClient {
     private _restClient!: REST;
 
     public _logger: any;
+    public _db: DataStore;
 
     public user!: ClientUser;
     private playingStatus!: string;
@@ -53,6 +55,10 @@ export default class DiscordClient {
         return config;
     }
 
+    get db() {
+        return this._db;
+    }
+
     get logger() {
         return this._logger;
     }
@@ -80,6 +86,8 @@ export default class DiscordClient {
 
         const clientOptions = config.client.options;
         const restOptions = config.client.restOptions;
+
+        this._db = new DataStore(this, config.mongoUri);
         
         this._client = new Client(clientOptions);
         this._restClient = new REST(restOptions);
@@ -127,9 +135,7 @@ export default class DiscordClient {
         await this.webhooks.initialize();
         let embed = {
             color: 0x66ff6b,
-            author: {
-                name: 'Client Ready'
-            },
+            title: 'Client Ready',
             thumbnail: {
                 url: this.client.user.avatarURL()
             },
@@ -170,11 +176,28 @@ export default class DiscordClient {
     };
 
     public handleError(err: any) {
+        let embed = {
+            color: 0xff4040,
+            title: 'Error',
+            description: `\`\`\`${err.message}\`\`\`\nSee console for full error stack.`,
+            footer: {
+                text: null
+            },
+            timestamp: new Date()
+        };
+
         if (!err) {
             return this.logger.error('An undefined exception occurred.');
-        }
+        };
+
+        // Suppress empty message errors
+        if (err.code === 50006) return;
 
         try {
+            if (err.code) {
+                embed.footer.text = 'Code: ' + err.code;
+            };
+
             if (err?.message && 
                 [ 
                     'ECONNREFUSED', 
@@ -183,10 +206,14 @@ export default class DiscordClient {
                     'Connection reset by peer'
                 ].includes(err.message)
             ) {
+                embed.color = 0xfffa6e;
+                embed.title = 'Warning';
                 return this.logger.warn(err);
             }
 
             if (err?.code === 1001) {
+                embed.color = 0xfffa6e;
+                embed.title = 'Warning';
                 return this.logger.warn(err);
             }
 
@@ -194,5 +221,6 @@ export default class DiscordClient {
         } catch (e) {
             this.logger.error(e);
         }
+        this.webhooks.execute(this.webhooks.channels.client, { embeds: [embed] });
     };
 }
