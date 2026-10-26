@@ -45,6 +45,7 @@ export class WebhookManager {
     public async initialize(): Promise<Channel> {
         this._channels.client = await this.client.channels.fetch(this.config.logs.client);
         this._channels.session = await this.client.channels.fetch(this.config.logs.session);
+        this._channels.guild = await this.client.channels.fetch(this.config.logs.guild);
         return this._channels;
     };
 
