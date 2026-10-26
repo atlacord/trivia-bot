@@ -55,19 +55,19 @@ export default class Info extends Command {
                 {
                     type: 2,
                     label: 'Website',
-                    url: `https://${this.config.web.host}`,
+                    url: `https://${this.config.web.host}?utm_source=bot-info`,
                     style: 5
                 },
                 {
                     type: 2,
                     label: 'Invite',
-                    url: `https://${this.config.web.host}/invite`,
+                    url: `https://${this.config.web.host}/invite?utm-source=bot-info`,
                     style: 5
                 },
                 {
                     type: 2,
                     label: 'Report Issues',
-                    url: 'https://discord.gg/avatar',
+                    url: 'https://trivia.atlacord.com/support?utm_source=bot-info',
                     style: 5
                 },
             ]
