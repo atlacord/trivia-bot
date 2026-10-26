@@ -8,7 +8,7 @@ const config: ClientConfig = {
     version: pkg.version,
     author: pkg.author,
     logLevel: process.env.LOG_LEVEL || 'info',
-    devMode: false,
+    devMode: true,
     private: false,
     developers: [
         // Kyle
@@ -22,6 +22,7 @@ const config: ClientConfig = {
         '370708369951948800' // Avatar: The Last Airbender
     ],
     avatarGuild: '370708369951948800',
+    mongoUri: process.env.MONGO_URI,
     web: {
         host: 'trivia.atlacord.com'
     },
@@ -40,7 +41,8 @@ const config: ClientConfig = {
     },
     logs: {
         client: process.env.CLIENT_LOG,
-        session: process.env.SESSION_LOG
+        session: process.env.SESSION_LOG,
+        guild: process.env.GUILD_LOG,
     }
 }
 

@@ -15,6 +15,7 @@ export interface ClientConfig {
     developers: Developer[];
     guilds: string[];
     avatarGuild: string;
+    mongoUri: string;
     web: {
         host: string;
     },
@@ -28,5 +29,6 @@ export interface ClientConfig {
     logs: {
         client: string;
         session: string;
+        guild: string;
     };
 }
