@@ -43,9 +43,8 @@ async function convertTriviaFiles(directory) {
                 parsedQuestions.push(payload)
             };
             console.log(parsedQuestions);
-            fs.writeFileSync(`src/lib/trivia/lists/${file.slice(0, -4)}.ts`, `export const ${file.slice(0, -4)} = ${util.inspect(parsedQuestions, { maxArrayLength: Infinity, depth: Infinity, compact: false })}`)
+            fs.writeFileSync(`src/lib/trivia/lists/${file.slice(0, -4)}.ts`, `export const ${file.slice(0, -4)} = { name: '${file.slice(0, -4)}', content: ${util.inspect(parsedQuestions, { maxArrayLength: Infinity, depth: Infinity, compact: false })}}`)
         }
-
     })
 }
 
