@@ -8,6 +8,7 @@ export abstract class Command extends Base {
     public abstract args: ApplicationCommandOption[];
     public abstract cooldown?: number;
     public abstract permissions?: BigInt;
+    public abstract avatarGuild?: boolean;
     public abstract options?: SlashCommandArgumentEnvelope;
 
     public autocomplete?(i: any): Promise<any>;

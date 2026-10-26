@@ -6,11 +6,13 @@ import type DiscordClient from '../Bot';
 export class CommandCollection<K, V> extends Collection<K, V> {
     private bot: DiscordClient;
     private slashCommands: ApplicationCommand[];
+    private guildCommands: ApplicationCommand[];
 
     constructor(config: any, bot: DiscordClient) {
         super();
         this.bot = bot;
         this.slashCommands = [];
+        this.guildCommands = [];
 
         this.loadModules();
     };
@@ -68,7 +70,11 @@ export class CommandCollection<K, V> extends Collection<K, V> {
         this.bot.logger.debug(`[CommandCollection] Registering command ${command.name}`);
         
         this.set(command.name, command); // Add to the command collection
+        if (command.avatarGuild) {
+            this.guildCommands.push(command.slashMetadata()); // If command is marked for Avatar guild only, register separately
+        } else {
         this.slashCommands.push(command.slashMetadata()); // Push command metadata to be registered as a slash command
+        }
     }
 
     /**
@@ -82,7 +88,9 @@ export class CommandCollection<K, V> extends Collection<K, V> {
         try {
             // Register all of the commands with Discord at once
             const data: any = await this.bot.restClient.put(Routes.applicationCommands(this.bot.client.user!.id), { body: commands });
+            const guildData: any = await this.bot.restClient.put(Routes.applicationGuildCommands(this.bot.client.user!.id, this.bot.config.avatarGuild), { body: commands });
             this.bot.logger.debug(`[CommandCollection] Successfully loaded ${data.length} application commands.`)
+            this.bot.logger.debug(`[CommandCollection] Successfully loaded ${guildData.length} guild commands.`)
         } catch (err) {
             this.bot.logger.error(err);
         }
