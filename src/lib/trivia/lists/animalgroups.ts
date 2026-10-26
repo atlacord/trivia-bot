@@ -1,4 +1,4 @@
-export const animalgroups = [
+export const animalgroups = { name: 'animalgroups', content: [
   {
     question: 'What is a group of apes called?',
     answers: [
@@ -642,4 +642,4 @@ export const animalgroups = [
       'rattlesnakes'
     ]
   }
-]
+]}

@@ -1,4 +1,4 @@
-export const usflags = [
+export const usflags = { name: 'usflags', content: [
   {
     question: 'What USA state or territory is represented by this flag? ',
     answers: [
@@ -388,4 +388,4 @@ export const usflags = [
     ],
     image: 'https://i.imgur.com/dnuOD5n.png'
   }
-]
+]}

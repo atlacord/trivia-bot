@@ -1,4 +1,4 @@
-export const slogans = [
+export const slogans = { name: 'slogans', content: [
   {
     question: 'Better to light a candle than curse the darkness.',
     answers: [
@@ -1555,4 +1555,4 @@ export const slogans = [
       'Texaco'
     ]
   }
-]
+]}

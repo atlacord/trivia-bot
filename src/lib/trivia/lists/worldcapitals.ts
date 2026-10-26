@@ -1,4 +1,4 @@
-export const worldcapitals = [
+export const worldcapitals = { name: 'worldcapitals', content: [
   {
     question: 'What is the capital of Afghanistan?',
     answers: [
@@ -1250,4 +1250,4 @@ export const worldcapitals = [
     question: '',
     answers: []
   }
-]
+]}

@@ -1,4 +1,4 @@
-export const pokemon = [
+export const pokemon = { name: 'pokemon', content: [
   {
     question: "What is Glalie's Hidden Ability?",
     answers: [
@@ -2636,4 +2636,4 @@ export const pokemon = [
     ],
     image: 'http://i.imgur.com/tSmriuj.png'
   }
-]
+]}

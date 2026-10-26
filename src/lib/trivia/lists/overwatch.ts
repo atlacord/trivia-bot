@@ -1,4 +1,4 @@
-export const overwatch = [
+export const overwatch = { name: 'overwatch', content: [
   {
     question: 'In which month and year was Overwatch released?',
     answers: [
@@ -1895,4 +1895,4 @@ export const overwatch = [
       'Blackwatch'
     ]
   }
-]
+]}

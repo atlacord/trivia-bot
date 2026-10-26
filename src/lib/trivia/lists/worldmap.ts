@@ -1,4 +1,4 @@
-export const worldmap = [
+export const worldmap = { name: 'worldmap', content: [
   {
     question: 'What country is highlighted on this map? ',
     answers: [
@@ -1421,4 +1421,4 @@ export const worldmap = [
     ],
     image: 'https://i.imgur.com/7DXx3lu.png'
   }
-]
+]}

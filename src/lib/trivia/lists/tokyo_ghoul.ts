@@ -1,4 +1,4 @@
-export const tokyo_ghoul = [
+export const tokyo_ghoul = { name: 'tokyo_ghoul', content: [
   {
     question: 'Which war is Anteiku located in?',
     answers: [
@@ -538,4 +538,4 @@ export const tokyo_ghoul = [
       'Mask'
     ]
   }
-]
+]}

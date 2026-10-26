@@ -1,4 +1,4 @@
-export const computers = [
+export const computers = { name: 'computers', content: [
   {
     question: 'How many layers are present in TCP/IP model?',
     answers: [
@@ -1044,4 +1044,4 @@ export const computers = [
     question: '',
     answers: []
   }
-]
+]}

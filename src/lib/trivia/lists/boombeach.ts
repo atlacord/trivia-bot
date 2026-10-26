@@ -1,4 +1,4 @@
-export const boombeach = [
+export const boombeach = { name: 'boombeach', content: [
   {
     question: 'How much GBE is 3 shocks?',
     answers: [
@@ -866,4 +866,4 @@ export const boombeach = [
     ],
     image: 'http://i.imgur.com/fSYlcgi.jpg'
   }
-]
+]}

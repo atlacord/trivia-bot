@@ -1,4 +1,4 @@
-export const general = [
+export const general = { name: 'general', content: [
   {
     question: 'How long is a MLS soccer match?',
     answers: [
@@ -4229,4 +4229,4 @@ export const general = [
       'France'
     ]
   }
-]
+]}

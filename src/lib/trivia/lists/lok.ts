@@ -1,4 +1,4 @@
-export const lok = [
+export const lok = { name: 'lok', content: [
   {
     question: 'Whom does Varrick marry at the end of the show?',
     answers: [
@@ -1845,4 +1845,4 @@ export const lok = [
       'Kuvira'
     ]
   }
-]
+]}

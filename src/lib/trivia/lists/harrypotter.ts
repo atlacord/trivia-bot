@@ -1,4 +1,4 @@
-export const harrypotter = [
+export const harrypotter = { name: 'harrypotter', content: [
   {
     question: '﻿﻿What is the name of the driver of the Knight Bus?',
     answers: [
@@ -1395,4 +1395,4 @@ export const harrypotter = [
     question: '',
     answers: []
   }
-]
+]}

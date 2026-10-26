@@ -1,4 +1,4 @@
-export const history = [
+export const history = { name: 'history', content: [
   {
     question: 'In which year did Hitler commit suicide?',
     answers: [
@@ -1257,4 +1257,4 @@ export const history = [
       'Iran'
     ]
   }
-]
+]}

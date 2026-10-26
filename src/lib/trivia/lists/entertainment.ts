@@ -1,4 +1,4 @@
-export const entertainment = [
+export const entertainment = { name: 'entertainment', content: [
   {
     question: 'Name the actor who played the leading role in "The Good, the Bad, and the Ugly"?',
     answers: [
@@ -4111,4 +4111,4 @@ export const entertainment = [
       'David Copperfield'
     ]
   }
-]
+]}

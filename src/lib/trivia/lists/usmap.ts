@@ -1,4 +1,4 @@
-export const usmap = [
+export const usmap = { name: 'usmap', content: [
   {
     question: 'What USA state or territory is highlighted on this map? ',
     answers: [
@@ -390,4 +390,4 @@ export const usmap = [
     ],
     image: 'https://i.imgur.com/43B3KgH.png'
   }
-]
+]}

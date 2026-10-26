@@ -1,4 +1,4 @@
-export const cars = [
+export const cars = { name: 'cars', content: [
   {
     question: 'What car is this? ',
     answers: [
@@ -677,4 +677,4 @@ export const cars = [
     ],
     image: 'https://i.imgur.com/eAtf4gS.jpeg'
   }
-]
+]}

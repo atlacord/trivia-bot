@@ -1,4 +1,4 @@
-export const leagueoflegends = [
+export const leagueoflegends = { name: 'leagueoflegends', content: [
   {
     question: '﻿Who says "Fight or be forgotten" when attacking?',
     answers: [
@@ -4600,4 +4600,4 @@ export const leagueoflegends = [
       'Vilemaw'
     ]
   }
-]
+]}

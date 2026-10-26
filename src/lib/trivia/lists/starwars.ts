@@ -1,4 +1,4 @@
-export const starwars = [
+export const starwars = { name: 'starwars', content: [
   {
     question: "What is the name of Anakin Skywalker's Mother?",
     answers: [
@@ -1935,4 +1935,4 @@ export const starwars = [
     question: '',
     answers: []
   }
-]
+]}

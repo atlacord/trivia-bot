@@ -1,4 +1,4 @@
-export const uscapitals = [
+export const uscapitals = { name: 'uscapitals', content: [
   {
     question: 'What is the USA state capital of Alabama?',
     answers: [
@@ -334,4 +334,4 @@ export const uscapitals = [
     question: '',
     answers: []
   }
-]
+]}

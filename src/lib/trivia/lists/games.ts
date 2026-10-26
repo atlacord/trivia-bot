@@ -1,4 +1,4 @@
-export const games = [
+export const games = { name: 'games', content: [
   {
     question: 'What game made popular the phrase "Do a barrel roll?"',
     answers: [
@@ -1009,4 +1009,4 @@ export const games = [
     question: '',
     answers: []
   }
-]
+]}

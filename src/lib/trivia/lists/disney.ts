@@ -1,4 +1,4 @@
-export const disney = [
+export const disney = { name: 'disney', content: [
   {
     question: 'In The Sword in the Stone, what does Merlin call The Greatest Force on Earth?',
     answers: [
@@ -6226,4 +6226,4 @@ export const disney = [
     question: '',
     answers: []
   }
-]
+]}

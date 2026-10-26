@@ -1,4 +1,4 @@
-export const mcu = [
+export const mcu = { name: 'mcu', content: [
   {
     question: 'Who is the actor that played Tony Stark/Iron Man?',
     answers: [
@@ -3272,4 +3272,4 @@ export const mcu = [
       'russo'
     ]
   }
-]
+]}

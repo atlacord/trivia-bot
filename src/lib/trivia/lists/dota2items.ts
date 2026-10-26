@@ -1,4 +1,4 @@
-export const dota2items = [
+export const dota2items = { name: 'dota2items', content: [
   {
     question: 'What item is this?  ',
     answers: [
@@ -1317,4 +1317,4 @@ export const dota2items = [
     ],
     image: 'http://i.imgur.com/CEkN0FS.png'
   }
-]
+]}

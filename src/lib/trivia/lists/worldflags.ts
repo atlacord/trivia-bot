@@ -1,4 +1,4 @@
-export const worldflags = [
+export const worldflags = { name: 'worldflags', content: [
   {
     question: 'What country is represented by this flag?  ',
     answers: [
@@ -1427,4 +1427,4 @@ export const worldflags = [
     question: '',
     answers: []
   }
-]
+]}

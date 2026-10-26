@@ -1,4 +1,4 @@
-export const elements = [
+export const elements = { name: 'elements', content: [
   {
     question: 'What is the element symbol of "Hydrogen"?',
     answers: [
@@ -711,4 +711,4 @@ export const elements = [
     question: '',
     answers: []
   }
-]
+]}

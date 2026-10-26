@@ -1,4 +1,4 @@
-export const hunter_x_hunter = [
+export const hunter_x_hunter = { name: 'hunter_x_hunter', content: [
   {
     question: 'What is the name of Gon Freecss’s father?',
     answers: [
@@ -858,4 +858,4 @@ export const hunter_x_hunter = [
       '4 episodes'
     ]
   }
-]
+]}

@@ -1,4 +1,4 @@
-export const gameofthrones = [
+export const gameofthrones = { name: 'gameofthrones', content: [
   {
     question: 'What does Valar morghulis mean?',
     answers: [
@@ -382,4 +382,4 @@ export const gameofthrones = [
       'Slynt'
     ]
   }
-]
+]}

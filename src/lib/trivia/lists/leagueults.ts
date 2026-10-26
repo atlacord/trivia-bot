@@ -1,4 +1,4 @@
-export const leagueults = [
+export const leagueults = { name: 'leagueults', content: [
   {
     question: "Which champion's ultimate is named: Spirit Rush?",
     answers: [
@@ -844,4 +844,4 @@ export const leagueults = [
       'Ornn'
     ]
   }
-]
+]}

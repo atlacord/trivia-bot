@@ -1,4 +1,4 @@
-export const attack_on_titan = [
+export const attack_on_titan = { name: 'attack_on_titan', content: [
   {
     question: "What's the name of the original opening song?",
     answers: [
@@ -1305,4 +1305,4 @@ export const attack_on_titan = [
       'Cart Titan'
     ]
   }
-]
+]}

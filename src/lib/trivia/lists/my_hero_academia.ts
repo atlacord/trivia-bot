@@ -1,4 +1,4 @@
-export const my_hero_academia = [
+export const my_hero_academia = { name: 'my_hero_academia', content: [
   {
     question: 'Who gave Aizawa his hero name?',
     answers: [
@@ -949,4 +949,4 @@ export const my_hero_academia = [
       'Master'
     ]
   }
-]
+]}

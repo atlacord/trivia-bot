@@ -1,4 +1,4 @@
-export const greekmyth = [
+export const greekmyth = { name: 'greekmyth', content: [
   {
     question: 'Who was the God of Nature and associated with sexuality?',
     answers: [
@@ -1147,4 +1147,4 @@ export const greekmyth = [
       'Herodotus'
     ]
   }
-]
+]}

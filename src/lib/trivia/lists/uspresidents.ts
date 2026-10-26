@@ -1,4 +1,4 @@
-export const uspresidents = [
+export const uspresidents = { name: 'uspresidents', content: [
   {
     question: 'Who was the 1st President?',
     answers: [
@@ -1205,4 +1205,4 @@ export const uspresidents = [
       'Trump'
     ]
   }
-]
+]}

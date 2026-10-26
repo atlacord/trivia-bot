@@ -1,4 +1,4 @@
-export const anime = [
+export const anime = { name: 'anime', content: [
   {
     question: '﻿Which genre is aimed at girls between 10-18?',
     answers: [
@@ -3253,4 +3253,4 @@ export const anime = [
       'red'
     ]
   }
-]
+]}

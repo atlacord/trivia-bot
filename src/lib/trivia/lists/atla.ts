@@ -1,4 +1,4 @@
-export const atla = [
+export const atla = { name: 'atla', content: [
   {
     question: 'What was the name of the fish Aang rode at Kyoshi Island?',
     answers: [
@@ -3163,4 +3163,4 @@ export const atla = [
       'sea prune'
     ]
   }
-]
+]}

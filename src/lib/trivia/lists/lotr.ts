@@ -1,4 +1,4 @@
-export const lotr = [
+export const lotr = { name: 'lotr', content: [
   {
     question: 'What happens to Pippin and Merry after they drink the waters of the Entwash?',
     answers: [
@@ -1322,4 +1322,4 @@ export const lotr = [
     question: '',
     answers: []
   }
-]
+]}

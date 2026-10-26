@@ -1,4 +1,4 @@
-export const rupaul = [
+export const rupaul = { name: 'rupaul', content: [
   {
     question: 'Who was the winner of Season 1?',
     answers: [
@@ -840,4 +840,4 @@ export const rupaul = [
       'kim chi'
     ]
   }
-]
+]}

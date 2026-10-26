@@ -1,4 +1,4 @@
-export const whosthatpokemon = [
+export const whosthatpokemon = { name: 'whosthatpokemon', content: [
   {
     question: 'Who’s that Pokémon? ',
     answers: [
@@ -7916,4 +7916,4 @@ export const whosthatpokemon = [
     ],
     image: 'https://i.ibb.co/K67NqvR/890.png'
   }
-]
+]}

@@ -1,4 +1,4 @@
-export const artandliterature = [
+export const artandliterature = { name: 'artandliterature', content: [
   {
     question: 'Which Shakespearean character has the most lines?',
     answers: [
@@ -2786,4 +2786,4 @@ export const artandliterature = [
       'Romanesque'
     ]
   }
-]
+]}

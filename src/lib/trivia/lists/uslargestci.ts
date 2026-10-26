@@ -1,4 +1,4 @@
-export const uslargestci = [
+export const uslargestci = { name: 'uslargestci', content: [
   {
     question: 'What is the most populous city of USA state Alabama?',
     answers: [
@@ -335,4 +335,4 @@ export const uslargestci = [
       'Charlotte Amalie'
     ]
   }
-]
+]}

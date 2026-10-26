@@ -1,4 +1,4 @@
-export const clashroyale = [
+export const clashroyale = { name: 'clashroyale', content: [
   {
     question: 'What is the name of the first Arena?',
     answers: [
@@ -769,4 +769,4 @@ export const clashroyale = [
       'training camp'
     ]
   }
-]
+]}

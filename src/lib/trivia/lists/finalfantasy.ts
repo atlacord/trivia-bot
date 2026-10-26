@@ -1,4 +1,4 @@
-export const finalfantasy = [
+export const finalfantasy = { name: 'finalfantasy', content: [
   {
     question: '(FFI) What is the HP of the final boss (Chaos), in the original NES version?',
     answers: [
@@ -4438,4 +4438,4 @@ export const finalfantasy = [
       'Jihl'
     ]
   }
-]
+]}

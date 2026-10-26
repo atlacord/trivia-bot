@@ -1,4 +1,4 @@
-export const warcraft = [
+export const warcraft = { name: 'warcraft', content: [
   {
     question: 'What is the original name given to the blood elves?',
     answers: [
@@ -1925,4 +1925,4 @@ export const warcraft = [
       'Allison'
     ]
   }
-]
+]}

@@ -1,4 +1,4 @@
-export const nba = [
+export const nba = { name: 'nba', content: [
   {
     question: 'What franchise has the most championships in NBA history?',
     answers: [
@@ -1438,4 +1438,4 @@ export const nba = [
       'West Virginia'
     ]
   }
-]
+]}

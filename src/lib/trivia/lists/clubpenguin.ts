@@ -1,4 +1,4 @@
-export const clubpenguin = [
+export const clubpenguin = { name: 'clubpenguin', content: [
   {
     question: 'How many different colors can your penguin be?',
     answers: [
@@ -833,4 +833,4 @@ export const clubpenguin = [
       'three'
     ]
   }
-]
+]}
