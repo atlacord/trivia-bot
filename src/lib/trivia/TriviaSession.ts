@@ -95,7 +95,7 @@ export default class TriviaSession {
                                 disabled: true,
                             }
                         ]
-                    }
+                    },
                 ]
             }
         };
@@ -206,13 +206,18 @@ export default class TriviaSession {
                 ]
             };
 
+            let topicComponent = {
+                type: 10,
+                content: `Topic: ${this.session.topic}`
+            }
+
             // Add image if the question has one
             if (this.session.currentQuestion.image) {
                 container.components.push({ type: 12, items: [{ media: { url: this.session.currentQuestion.image }}]})
             };
 
             // Finally, add the buttons
-            container.components.push(actionRow);
+            container.components.push(actionRow, topicComponent);
 
             let quizMessage = await this.sendMessage({}, container);
 

@@ -1,7 +1,7 @@
 import { ApplicationCommandOption, PermissionFlagsBits } from 'discord.js';
 import { Command, CommandData } from '../../lib/structures';
 import { TriviaSession } from '../../lib/trivia';
-import * as lists from '../../lib/trivia/lists';
+import { Document } from 'mongoose';
 
 export default class Trivia extends Command {
     public name         : string = 'trivia';
@@ -25,7 +25,9 @@ export default class Trivia extends Command {
     public options      : any    =  {};
 
     public async autocomplete(interaction: any) {
-        const choices: string[] = Object.keys(lists).sort();
+        const model = this.bot.db.models['Topic'];
+        let topics = await model.find({}).select('name').lean();
+        const choices: string[] = topics.map(d => d.name).sort();
         try {
             let filtered;
             filtered = choices.slice(0, 25);
@@ -43,18 +45,22 @@ export default class Trivia extends Command {
         };
     }
 
-    public getList(listArg?: any): any {
+    public async getList(listArg?: any): Promise<any> {
+        const model = this.bot.db.models['Topic'];
+        let doc;
         if (!listArg) {
-            const values = Object.values(lists);
-            return values[Math.floor(Math.random() * values.length)];
-        };
-        return lists[listArg.value as keyof typeof lists];
+            doc = await model.aggregate([{ $sample: { size: 1}}]);
+            doc = doc[0];
+        } else {
+            doc = await model.findById(listArg.value).lean();
+        }
+        return doc;
     }
 
     public async execute({ interaction, options }: CommandData): Promise<any> {
 
         let listArg: any = interaction.options.get('list') || null;
-        let list = this.getList(listArg);
+        let list = await this.getList(listArg);
         let maxQuestions: any = interaction.options.get('questions') || null;
 
         let identifier;
@@ -66,8 +72,8 @@ export default class Trivia extends Command {
         let sessionOptions = {
             id: `trivia:${identifier}:${interaction.user.id}`,
             user: interaction.user,
-            list: list,
-            topic: listArg.value,
+            list: list.questions,
+            topic: list.name,
             maxQuestions: maxQuestions.value
         };
 
