@@ -5,9 +5,7 @@ import { Session } from '../../lib/trivia/TriviaSession';
 export default async function triviaSessionCreate(manager: EventManager, session: Session, guild: Guild) {
     let embed = {
         color: 0x66ff6b,
-        author: {
-            name: 'Trivia Session Created'
-        },
+        title: 'Trivia Session Created',
         fields: [
             { name: 'User', value: `${session.user.username} (${session.user.id}` },
             { name: 'Guild', value: `${guild.name} (${guild.id})` },
@@ -19,6 +17,6 @@ export default async function triviaSessionCreate(manager: EventManager, session
         },
         timestamp: new Date()
     }
-    manager.bot.webhooks.execute(manager.bot.webhooks.channels.session, { embeds: [embed] });
+    manager.webhooks.execute(manager.webhooks.channels.session, { embeds: [embed] });
     return manager.bot.logger.info(`[TriviaSession] Initializing new session ${session.id} in ${guild.id}`);
 };
