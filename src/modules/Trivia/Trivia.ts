@@ -64,14 +64,7 @@ export default class Trivia extends Command {
         let list = await this.getList(listArg);
         let maxQuestions: any = interaction.options.get('questions') || null;
 
-        let identifier;
-        if (!listArg) {
-            identifier = 'random'
-        } else {
-            identifier = listArg.value
-        };
         let sessionOptions = {
-            id: `trivia:${identifier}:${interaction.user.id}`,
             user: interaction.user,
             list: list.questions,
             topic: list.name,
