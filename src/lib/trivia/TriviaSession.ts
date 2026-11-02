@@ -1,6 +1,7 @@
 import { ChatInputCommandInteraction, MessageFlags, ContainerComponent, InteractionReplyOptions, MessageComponent, User } from 'discord.js';
 import crypto from 'crypto';
 import DiscordClient from '../../core/Bot';
+import { Document } from 'mongoose';
 
 export interface Question {
     question: string;
@@ -22,7 +23,6 @@ export interface Session {
 };
 
 export interface SessionOptions {
-    id: string;
     user: User | any;
     list: Question[];
     topic: string;
@@ -37,6 +37,7 @@ export default class TriviaSession {
     private session: Session;
     private reply: Map<string, any>;
     private playing: boolean;
+    public dbdoc: any;
 
     constructor(bot: DiscordClient, interaction: ChatInputCommandInteraction, options: SessionOptions) {
         this.bot = bot;
@@ -49,8 +50,23 @@ export default class TriviaSession {
     };
 
     public createSession(options: SessionOptions): Session {
+        const sessionID = crypto.randomUUID();
+        this.dbdoc = {
+            _id: sessionID,
+            guild: this.interaction.guild.id,
+            user: options.user.id,
+            topic: options.topic,
+            questions: options.maxQuestions,
+            score: 0,
+            createdAt: new Date()
+        };
+
+        async () =>  {
+            await this.bot.db.models['Session'].insertOne(this.dbdoc);
+        };
+
         return {
-            id: options.id,
+            id: sessionID,
             user: options.user,
             list: options.list,
             topic: options.topic,
@@ -124,7 +140,11 @@ export default class TriviaSession {
         return false;
     }
 
-    public endGame(): boolean {
+    public async endGame(): Promise<boolean> {
+        const session = await this.bot.db.models['Session'].findById(this.session.id);
+        session.score = this.session.score;
+        await session.save();
+        
         this.bot.client.emit('triviaSessionDelete', this.session, this.interaction.guild)
         this.playing = false;
         return false;
@@ -138,6 +158,7 @@ export default class TriviaSession {
     };
 
     public async runTrivia() {
+        await this.bot.db.models['Session'].insertOne(this.dbdoc);
         while (this.playing) {
             // End game if user exceeds the maximum score or questions
             // if ((this.session.maxScore && (this.session.score >= this.session.maxScore) || this.session.questionNumber > this.session.maxQuestions)) {
