@@ -50,7 +50,7 @@ export default class Trivia extends Command {
         const model = this.bot.db.models['Topic'];
         let doc;
         console.log(listArg);
-        if (!listArg) {
+        if (listArg === null) {
             doc = await model.aggregate([{ $sample: { size: 1}}]);
             return doc[0];
         } else {
