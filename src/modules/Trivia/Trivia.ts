@@ -66,6 +66,7 @@ export default class Trivia extends Command {
         let maxQuestions: any = interaction.options.get('questions') || null;
 
         if (!maxQuestions) {
+            maxQuestions = {};
             maxQuestions.value = 10;
         }
 
