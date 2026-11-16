@@ -48,7 +48,7 @@ export default class Trivia extends Command {
 
     public async getList(listArg?: any): Promise<any> {
         const model = this.bot.db.models['Topic'];
-        if (listArg.value === 'random') {
+        if (!listArg) {
             let doc = await model.aggregate([{ $sample: { size: 1}}]);
             console.log(doc);
             return doc[0];
@@ -61,14 +61,13 @@ export default class Trivia extends Command {
 
     public async execute({ interaction, options }: CommandData): Promise<any> {
 
-        let listArg: any;
-        listArg = interaction.options.get('list') || null;
-        if (!listArg) {
-            listArg = {};
-            listArg.value = 'random';
-        }
+        let listArg: any = interaction.options.get('list') || null;
         let list = await this.getList(listArg);
         let maxQuestions: any = interaction.options.get('questions') || null;
+
+        if (!maxQuestions) {
+            maxQuestions.value = 10;
+        }
 
         let sessionOptions = {
             user: interaction.user,
