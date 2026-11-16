@@ -49,7 +49,7 @@ export default class Trivia extends Command {
     public async getList(listArg?: any): Promise<any> {
         const model = this.bot.db.models['Topic'];
         let doc;
-        if (!listArg.value) {
+        if (listArg === null) {
             doc = await model.aggregate([{ $sample: { size: 1}}]);
             doc = doc[0];
         } else {
