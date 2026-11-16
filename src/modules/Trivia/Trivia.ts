@@ -28,7 +28,7 @@ export default class Trivia extends Command {
     public async autocomplete(interaction: any) {
         const model = this.bot.db.models['Topic'];
         let topics = await model.find({}).select('name').lean();
-        const choices: string[] = topics.map(d => d.name).sort();
+        const choices: string[] = topics.filter(t => !t.disabled).map(d => d.name).sort();
         try {
             let filtered;
             filtered = choices.slice(0, 25);
@@ -50,7 +50,6 @@ export default class Trivia extends Command {
         const model = this.bot.db.models['Topic'];
         if (!listArg) {
             let doc = await model.aggregate([{ $sample: { size: 1}}]);
-            console.log(doc);
             return doc[0];
         } else {
             if (listArg.value) {
